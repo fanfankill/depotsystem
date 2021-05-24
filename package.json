@@ -12,6 +12,9 @@
     "core-js": "^3.6.5",
     "echarts": "^4.9.0",
     "element-ui": "^2.14.0",
+    "font-awesome": "^4.7.0",
+    "js-file-download": "^0.4.12",
+    "qs": "^6.10.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.8",
     "vuex": "^3.5.1"

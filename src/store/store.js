@@ -11,16 +11,24 @@ export default new Vuex.Store({
         count:0,
         id:'0',
         username:'fanfan',
+        priface:'党员',
+        age:'19',
+        department:'人事部',
+        household:'岳阳',
+        nowpalce:'长沙',
         nickname:'昵称',
         phoneNumber:'请输入手机号码',
         emil:'1623920276@qq.com',
-        role:'身份',
+        role:'科长',
+        height:'1.82',
         createTime:'测试时间',
         img:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 
+        /*路由名字储存 */
+        breadListState: [], // 面包屑列表数据
         /*token储存 */
-        Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
-
+        token: localStorage.getItem('token') ? localStorage.getItem('token') : ''
+     
         
 
 
@@ -33,13 +41,22 @@ export default new Vuex.Store({
         }
     },
     mutations:{
-        /*对值改变的计算 */
+        /**对侧边栏收缩改变 */
+        changecoll(state,iscoll)
+        {
+            state.iscollape=iscoll
+        },
+        /*token方法 */
         changeLogin (state, user) {
 
-            state.Authorization = user.Authorization;
+            state.token = user.token;
       
-            localStorage.setItem('Authorization', user.Authorization);
-        }
+            localStorage.setItem('token', user.token);
+        },
+        breadListMutations(getters, list) {
+            getters.breadListState = list;
+          }
+
 
     },
     actions:{

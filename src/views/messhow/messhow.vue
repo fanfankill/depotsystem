@@ -1,10 +1,12 @@
 <template>
-  <h2>我的</h2>
+  <div>
+      数据展示页面
+  </div>
 </template>
 
 <script>
 export default {
-    name:'profile'
+
 }
 </script>
 
