@@ -21,6 +21,8 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+    <!-- 新增区域弹窗 -->
+    <addposition :changebox='addpositonbox'  @changebox="positionchange"></addposition>
 
     <!-- 修改车位信息弹窗 -->
     <el-dialog title="修改车位信息" :visible.sync="editpark">
@@ -114,6 +116,8 @@
           >搜索</el-button
         >
       </div>
+       <el-button type="primary" @click="addpositonbox = true">新增区域</el-button>
+
       <el-button type="primary" @click="addpark = true">新增车位</el-button>
     </div>
     <div>
@@ -138,7 +142,7 @@
         </el-table-column>
         <el-table-column prop="CarpersonName" label="车主姓名">
           <template slot-scope="scope">
-            {{ scope.row.CarpersonName || "暂无车主" }}
+           {{ scope.row.CarpersonName || "暂无车主" }}
           </template>
         </el-table-column>
         <el-table-column prop="DueDate" label="到期时间">
@@ -170,16 +174,23 @@
 </template>
 
 <script>
+import addposition from './parkingchild/addposition'
 export default {
   created: function () {
     this.getallparkings();
     this.getallpositons();
+  },
+  components:{
+    addposition:addposition
   },
   data() {
     return {
       tableData: [],
       addpark: false,
       editpark: false,
+
+      //新增区域弹窗
+      addpositonbox:false,
       
       //停车区域信息
       positions:[],
@@ -340,6 +351,12 @@ export default {
           console.log(err);
         });
     },
+    //子传父
+    positionchange(data)
+    {
+    
+      this.addpositonbox=data
+    }
   },
 };
 </script>
