@@ -2,24 +2,21 @@
   <div>
     <!-- 新增车位弹出窗 -->
     <el-dialog title="新增车位" :visible.sync="addpark">
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="140px"
-        class="demo-ruleForm"
-      >
-        <el-form-item label="小时计费：" prop="cost">
-          <el-input style="width: 200px" v-model="ruleForm.cost"></el-input>
-        </el-form-item>
-
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')"
-            >立即创建</el-button
-          >
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
+     <el-select v-model="toaddposition" placeholder="请选择停车区域">
+    <el-option
+      v-for="item in positions"
+      :key="item.descration"
+      :label="item.position"
+      :value="item.position">
+      <span style="float: left">{{ item.position }}</span>
+      <span style="float: right; color: #8492a6; font-size: 13px">￥{{ item.fare }}</span>
+    </el-option>
+  </el-select>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="addpark = false">取 消</el-button>
+    <el-button type="primary" @click="toaddpark">修 改</el-button>
+  </span>
+  
     </el-dialog>
     <!-- 新增区域弹窗 -->
     <addposition :changebox='addpositonbox'  @changebox="positionchange"></addposition>
@@ -41,12 +38,14 @@
         <tr>
           <td><el-tag>停车区域</el-tag></td>
           <td>
-             <el-select v-model="editposiion" placeholder="请选择停车区域">
+             <el-select v-model="toaddposition" placeholder="请选择停车区域">
     <el-option
       v-for="item in positions"
       :key="item.descration"
       :label="item.position"
       :value="item.position">
+      <span style="float: left">{{ item.position }}</span>
+      <span style="float: right; color: #8492a6; font-size: 13px">￥{{ item.fare }}</span>
     </el-option>
   </el-select>
           </td>
@@ -170,6 +169,18 @@
         </el-table-column>
       </el-table>
     </div>
+    <!-- 分页区域 -->
+    <div class="pagediliver">
+      <el-pagination
+  background
+   @size-change="handleSizeChange"
+    @current-change="handleCurrentChange"
+  layout="total,prev, pager, next"
+  :total="parktotal"
+  
+  :page-size='parkpage'>
+</el-pagination>
+    </div>
   </div>
 </template>
 
@@ -188,10 +199,19 @@ export default {
       tableData: [],
       addpark: false,
       editpark: false,
+      //分页区域
+      parktotal:0,
+      parkpage:5,
+
+      currentpage:1,
+      pagesize:5,
+
+      //新增停车区域
+      toaddposition:'',
 
       //新增区域弹窗
       addpositonbox:false,
-      
+      parkid:'',
       //停车区域信息
       positions:[],
       //编辑弹窗
@@ -202,27 +222,31 @@ export default {
        editiscar:true,
       editisfixed:false,
 
-      parkid: "",
-      //是否固定
-      ruleForm: {
-        cost: "",
-      },
-      rules: {
-        cost: [
-          { required: true, message: "请输入小时计费价格", trigger: "change" },
-        ],
-      },
+    
+      
+     
     };
   },
 
   methods: {
-    //获取所有车位信息
+    //分页区域
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        this.currentpage=val
+        this.getallparkings()
+      },
+
+    //分页获取所有车位信息
     getallparkings() {
       this.$axios
-        .get("/getallparking")
+        .get("/getallparking?currentpage="+this.currentpage+'&pagesize='+this.pagesize)
         .then((res) => {
           console.log(res);
-          this.tableData = res.data.result;
+          this.tableData = res.data.result2;
+          this.parktotal=res.data.count
+          
         })
         .catch((err) => {
           console.log(err);
@@ -268,14 +292,11 @@ export default {
           });
       }
     },
-    //提交新增车位表单
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          console.log(this.ruleForm.cost);
-          this.$axios
+    //新增车位
+   toaddpark(){
+     this.$axios
             .post("/addparking", {
-              cost: this.ruleForm.cost,
+              position: this.toaddposition,
             })
             .then((res) => {
               console.log(res);
@@ -290,15 +311,7 @@ export default {
             .catch((err) => {
               console.log(err);
             });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
+   },
     //修改车位信息
     toeditparking(row) {
     
@@ -382,5 +395,13 @@ export default {
 }
 #edittab td{
   width: 110px;
+}
+.pagediliver{
+  margin-top:20px;
+  float: right;
+}
+/**分页展示颜色改变 */
+.el-pagination__total{
+  color: gray;
 }
 </style>
