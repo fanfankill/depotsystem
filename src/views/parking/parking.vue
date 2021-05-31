@@ -139,6 +139,11 @@
             <el-tag type="success" v-else>是</el-tag>
           </template>
         </el-table-column>
+        <el-table-column prop="CarNumber" label="车牌编号">
+          <template slot-scope="scope">
+           {{ scope.row.CarNumber || "暂无车辆" }}
+          </template>
+        </el-table-column>
         <el-table-column prop="CarpersonName" label="车主姓名">
           <template slot-scope="scope">
            {{ scope.row.CarpersonName || "暂无车主" }}
@@ -221,9 +226,6 @@ export default {
        edittime:'',
        editiscar:true,
       editisfixed:false,
-
-    
-      
      
     };
   },

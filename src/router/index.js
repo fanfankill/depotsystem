@@ -7,7 +7,7 @@ const main=()=>import('../components/main.vue')
 const mainshow=()=>import('../views/messhow/messhow.vue')
 const administrators=()=>import('../views/administrators/administrators.vue')
 const parking=()=>import('../views/parking/parking.vue')
-
+const carjoin=()=>import('../views/carjoin/carjoin.vue')
 
 
 //安装插件
@@ -44,6 +44,11 @@ const routes = [
     {
       path:'/parking',
       component:parking
+    },
+    //进出车辆登记
+     {
+      path:'/carjoin',
+      component:carjoin
     },
   ]
 },

@@ -15,9 +15,9 @@
         <span slot="title">车位管理</span>
       </el-menu-item>
 
-        <el-menu-item index="/login">
+        <el-menu-item index="/carjoin">
         <i class="el-icon-menu"></i>
-        <span slot="title">人员登记</span>
+        <span slot="title">进出车辆登记</span>
       </el-menu-item>
 
         <el-menu-item index="/administrators">
