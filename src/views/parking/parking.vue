@@ -319,18 +319,19 @@ export default {
     
       this.editpark = true;
       this.editinputid=row.CarportNumber
-      this.editposiion=row.position
+      this.toaddposition=row.position
       this.editinputperson=row.CarpersonName
        this.edittime=row.DueDate
          this.editiscar=(parseInt(row.HaveCar))
       this.editisfixed=(parseInt(row.FixCar))
+     
     },
     //提交修改数据交互
     editparking()
     {
       this.$axios.post('/editparking',{
         HaveCar:this.editiscar,
-        position:this.editposiion,
+        position:this.toaddposition,
         FixCar:this.editisfixed,
         CarpersonName:this.editinputperson,
         CarportNumber:this.editinputid
@@ -346,6 +347,7 @@ export default {
         console.log(err);
       })
       this.editpark=false;
+       this.getallparkings()
     },
 
     //删除车位信息

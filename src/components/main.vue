@@ -20,6 +20,11 @@
         <span slot="title">进出车辆登记</span>
       </el-menu-item>
 
+       <el-menu-item index="/carjoincontrol">
+        <i class="el-icon-user-solid"></i>
+        <span slot="title">临时车管理</span>
+      </el-menu-item>
+
         <el-menu-item index="/administrators">
         <i class="el-icon-user-solid"></i>
         <span slot="title">管理员界面</span>
