@@ -3,8 +3,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 const login = () => import('../views/login/login')
+const register = () => import('../views/register/register')
 const main=()=>import('../components/main.vue')
-const mainshow=()=>import('../views/messhow/messhow.vue')
+const mainshow=()=>import('../views/mainshow/mainshow.vue')
 const administrators=()=>import('../views/administrators/administrators.vue')
 const parking=()=>import('../views/parking/parking.vue')
 const carjoin=()=>import('../views/carjoin/carjoin.vue')
@@ -25,6 +26,11 @@ const routes = [
 {
   path:'/login',
   component:login
+},
+
+{
+  path:'/register',
+  component:register
 },
 //主页面
 {
@@ -56,6 +62,7 @@ const routes = [
         path:'/carjoincontrol',
         component:  carjoincontrol
       },
+      
   
   ]
 },

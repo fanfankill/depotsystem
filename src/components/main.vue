@@ -5,7 +5,7 @@
         <el-menu   :default-active="this.$route.path"
         router>
 
-         <el-menu-item index="/login">
+         <el-menu-item index="/mainshow">
         <i class="el-icon-menu"></i>
         <span slot="title">主界面</span>
       </el-menu-item>
@@ -43,7 +43,7 @@
               <el-dropdown-item>删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>王小虎</span>
+          <span>fanfan</span>
         </el-header>
 
         <el-main>
@@ -70,6 +70,9 @@ export default {
   color: #333;
   text-align: center;
   line-height: 60px;
+}
+.el-main{
+  background-color: rgb(245, 244, 244);
 }
 .el-aside {
   color: #333;

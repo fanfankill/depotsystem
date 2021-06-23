@@ -142,7 +142,7 @@ watch:{
   height: 600px;
   width: 30%;
 
-  background-color: rgb(242, 243, 242);
+  background-color: rgb(255, 255, 255);
 }
 .jointable tr{
   height: 80px;

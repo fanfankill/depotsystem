@@ -141,12 +141,16 @@
         </el-table-column>
         <el-table-column prop="CarNumber" label="车牌编号">
           <template slot-scope="scope">
-           {{ scope.row.CarNumber || "暂无车辆" }}
+               <span v-if="scope.row.CarNumber ">{{scope.row.CarNumber}}</span>
+            <span v-else style="color:grey">暂无车辆</span>
+          <!--  {{ scope.row.CarNumber || "暂无车辆" }} -->
           </template>
         </el-table-column>
         <el-table-column prop="CarpersonName" label="车主姓名">
           <template slot-scope="scope">
-           {{ scope.row.CarpersonName || "暂无车主" }}
+            <span v-if="scope.row.CarpersonName">{{scope.row.CarpersonName}}</span>
+            <span v-else style="color:grey">暂无车主</span>
+          <!--  {{ scope.row.CarpersonName || "暂无车主" }} -->
           </template>
         </el-table-column>
         <el-table-column prop="DueDate" label="到期时间">
@@ -159,7 +163,7 @@
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-button size="mini" @click="toeditparking(scope.row)"
               >编辑</el-button

@@ -25,14 +25,22 @@
       <tr><td><el-tag>驶出时间</el-tag></td>
       <td>{{costlist.leavetime}}</td >
       </tr>
-      
-       
   </table>
   <span slot="footer" class="dialog-footer">
     <el-button @click="carjoinend = false">取 消</el-button>
-    <el-button type="primary" @click="removecarjoin">确 定</el-button>
+    <el-button type="primary" v-if="!DoneValue" @click="removecarjoin">驶出</el-button>
+    <el-button type="primary" v-else @click="carjoinend=false">确 定</el-button>
   </span>
 </el-dialog>
+
+  <el-select v-model="DoneValue" placeholder="请选择">
+    <el-option
+      v-for="item in donelist"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
 
         <el-table :data="tableData">
             <el-table-column prop="Id" label="ID" width="140">
@@ -45,22 +53,35 @@
                 </template>
             </el-table-column>
              <el-table-column prop="LeaveTime" label="离开时间">
-                   
+                   <template slot-scope="scope">
+                    <span  v-if="scope.row.LeaveTime" >{{scope.row.LeaveTime.slice(0, 10)+" "+scope.row.LeaveTime.slice(11, 16)}}</span>
+                     <span style="color:gray" v-else >未离开</span>
+                </template>
              </el-table-column>
                <el-table-column prop="position" label="停车区域">
            </el-table-column>
            <el-table-column prop="CarportNumber" label="车位编号">
            </el-table-column>
-             <el-table-column label="操作">
-      <template slot-scope="scope">
+             <el-table-column label="操作" >
+      <template slot-scope="scope" >
       
-        <el-button
+        <el-button v-if="DoneValue==0"
           size="mini"
           type="primary"
           @click="searchcarjoin(scope.row)"
             >出库</el-button>
+
+             <el-button v-else
+          size="mini"
+          type="success"
+          @click="searchcarjoin(scope.row)"
+            >详细</el-button>
       </template>
+
+      
     </el-table-column>
+
+     
 
         </el-table>
   </div>
@@ -68,6 +89,14 @@
 
 <script>
 export default {
+    watch:
+    {
+        DoneValue:function(newvalue)
+        {
+            console.log(newvalue);
+            this.getallcarjoin()
+        }
+    },
     created:function()
     {
         this.getallcarjoin()
@@ -82,7 +111,16 @@ export default {
             costlist:{},
 
             joinId:'',
-            CarportNumber:''
+            CarportNumber:'',
+
+            //选择类型
+            DoneValue:0,
+            donelist:[
+                {label:'已出库',
+                value:1},
+                {label:'未出库',
+                value:0}
+            ]
         }
     },
     methods:{
@@ -90,7 +128,7 @@ export default {
         getallcarjoin()
         {
 
-            this.$axios.get('/getallcarjoin').then(res=>{
+            this.$axios.get('/getallcarjoin?isdone='+this.DoneValue).then(res=>{
                 console.log(res);
                 this.tableData=res.data
             }).catch(err=>{

@@ -59,7 +59,9 @@ export default {
     };
   },
   created() {
-    if (this.getCookie("username") && this.getCookie("password")) {
+    if (
+      
+      this.getCookie("username") && this.getCookie("password")) {
       this.username = this.getCookie("username");
       this.password = this.getCookie("password");
       this.checked = true;
@@ -67,8 +69,7 @@ export default {
   },
   methods: {
     getmes() {
-      axios
-        .post("/login", {
+      axios.post("/login", {
           username: this.username,
           password: this.password,
         })
@@ -88,7 +89,7 @@ export default {
               message: res.data.message,
               type: "success",
             });
-             this.$router.push("/main");
+             this.$router.push("/mainshow");
           }
         })
         .catch((err) => {
