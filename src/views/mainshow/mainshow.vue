@@ -60,7 +60,9 @@ export default {
       //上左页面展示
       totalmes:{},
       //圈圈数据
-      circlemes:[]
+      circlemes:[],
+      //折线图数据
+      xianmes:[],
     };
   },
   mounted: function () {
@@ -131,8 +133,31 @@ export default {
     
     //折线图
     getxian(){
- var myChart = echarts.init(document.getElementById("xian"));
-    
+
+      this.$axios.get('/getxianmes').then(res=>{
+        console.log(res);
+        this.xianmes=res.data.result,
+        this.xian(this.xianmes)
+      })
+    },
+
+    xian(xianmes)
+    {
+     
+      console.log(xianmes);
+      let days=[]
+      let totalprice=[]
+      xianmes.map(v=>{
+        if(v.day!=null)
+        {
+          days.push(v.day.substring(5,10))
+        }
+        v.totaldayfare
+        totalprice.push(v.totaldayfare)
+        })
+        console.log(totalprice);
+      
+        var myChart = echarts.init(document.getElementById("xian"));
     var option = {
         color:['rgb(64, 206, 231)'],
         title: {
@@ -145,19 +170,18 @@ export default {
         
     xAxis: {
         type: 'category',
-        data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+        data: days
     },
     yAxis: {
         type: 'value'
     },
     series: [{
-        data: [150, 230, 224, 218, 135, 147, 260],
+        data: totalprice,
         type: 'line'
     }]
 };
 
   myChart.setOption(option);
-
     },
   },
 };
