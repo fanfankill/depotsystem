@@ -4,17 +4,17 @@
       <div class="leftdiv">
         <div class="topshowdiv">
           <el-divider>总车位数</el-divider>
-          <div class="topspanshow">12</div>
+          <div class="topspanshow">{{totalmes.totalcar}}</div>
         </div>
 
         <div class="topshowdiv">
           <el-divider>空闲车位数</el-divider>
-          <div class="topspanshow">8</div>
+          <div class="topspanshow">{{totalmes.totalfreecar}}</div>
         </div>
 
-        <div class="topshowdiv">
+        <div class="topshowdiv" style="border:none">
           <el-divider>固定车位数</el-divider>
-          <div class="topspanshow">2</div>
+          <div class="topspanshow">{{totalmes.totalfixcar}}</div>
         </div>
       </div>
       <div class="rightdiv">
@@ -56,16 +56,44 @@
 import echarts from "echarts";
 export default {
   data() {
-    return {};
+    return {
+      //上左页面展示
+      totalmes:{},
+      //圈圈数据
+      circlemes:[]
+    };
   },
   mounted: function () {
+    this.gettotal()
     this.getcircle();
     this.getxian()
   },
   methods: {
 
-    //圆圈图
+      //获取车位总数 车辆剩余量
+      gettotal()
+      {
+        this.$axios.get("/gettotalcar").then(res=>{
+          console.log(res);
+          this.totalmes=res.data
+        })
+      },
+
+    //获取圆圈数据
     getcircle() {
+
+        this.$axios.get('/getciclemes').then(res=>{
+          console.log(res);
+          this.circlemes=res.data.circlemessage,
+          this.circle(this.circlemes)
+          
+        })
+    },
+    //圈圈图
+    circle(circlemes)
+    {
+        //画图
+      
       var myChart = echarts.init(document.getElementById("circle"));
 
       // 指定图表的配置项和数据
@@ -84,15 +112,10 @@ export default {
         },
         series: [
           {
-            name: "访问来源",
+            name: "车位数目",
             type: "pie",
-            radius: "70%%",
-            data: [
-              { value: 3, name: "A区" },
-              { value: 2, name: "B区" },
-              { value: 4, name: "C区" },
-              { value: 8, name: "D区" },
-            ],
+            radius: "60%%",
+            data: circlemes,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -140,7 +163,7 @@ export default {
 };
 </script>
 
-<style>
+<style> 
 .topdiv {
   
   display: flex;

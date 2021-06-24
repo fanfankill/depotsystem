@@ -71,8 +71,8 @@
           <td>
             <el-switch
               style="display: block"
-               :active-value="1"
-                :inactive-value="0"
+               :active-value="0"
+                :inactive-value="1"
               v-model="editisfixed"
               active-color="#13ce66"
               inactive-color="#ff4949"
@@ -135,7 +135,7 @@
         </el-table-column>
         <el-table-column prop="FixCar" label="是否固定车位"  align="center">
           <template slot-scope="scope">
-            <el-tag type="danger" v-if="scope.row.FixCar == 0">否</el-tag>
+            <el-tag type="danger" v-if="scope.row.FixCar == 1">否</el-tag>
             <el-tag type="success" v-else>是</el-tag>
           </template>
         </el-table-column>
