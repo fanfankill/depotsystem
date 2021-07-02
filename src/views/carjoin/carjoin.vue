@@ -1,12 +1,29 @@
 <template>
   <div>
-      <div class="left">
+
+        <el-skeleton  :loading="boxloading" animated >
+      <template slot="template">
+            <div class="left">
+
+            <el-skeleton-item
+          variant="div"
+         
+          style="width:100%;height:600px;"
+        />
+            </div>
+         
+      </template>
+
+      <template>
+        <div class="left">
           <p>进出车辆登记表</p>
           <div class="carjoinform">
             <table class="jointable">
               <tr>
                 <td>车牌号码：</td>
-                <td><el-input v-model="carnumber" placeholder="请输入车牌号码"></el-input></td>
+                <td><el-input style="width:80px;float:left" v-model="carnumber1" placeholder="地区号"></el-input>
+                <span>-</span>
+                 <el-input style="width:130px" v-model="carnumber2" placeholder="车牌号码"></el-input></td>
               </tr>
                <tr>
                 <td>泊车区域：</td>
@@ -48,6 +65,8 @@
 
           </div>
       </div>
+      </template>
+        </el-skeleton>
   </div>
 </template>
 
@@ -63,11 +82,21 @@ watch:{
 
   created:function()
   {
-    this.getallpositons()
+    setTimeout(()=>{
+      this.boxloading=false
+      this.getallpositons()
+    },1000)
   },
   data() {
     return {
+      //骨架
+      boxloading:true,
+      //车牌号码
       carnumber:'',
+
+      carnumber1:'',
+
+      carnumber2:'',
 
       //进出车辆表单
       toaddposition:'',
@@ -102,10 +131,28 @@ watch:{
         console.log(err);
       })
     },
+    //车牌号码的正则
+    checkcarnumber(vehicleNumber)
+    {
+      console.log(vehicleNumber);
+    var xreg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
+    var creg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
+    if(vehicleNumber.length == 7)
+    { return creg.test(vehicleNumber);}
+    else if(vehicleNumber.length == 8){
+        return xreg.test(vehicleNumber);
+      } else
+        {return false;}
+    },
 
     //添加进出车辆记录
     addcarjoin()
     {
+        //拼接起来
+      this.carnumber=this.carnumber1+this.carnumber2
+
+       let checknumber=this.checkcarnumber(this.carnumber)
+        if(checknumber){
       this.$axios.post('/addcarjoin',{
         CarNumber:this.carnumber,
         position:this.toaddposition,
@@ -130,8 +177,14 @@ watch:{
       }).catch(err=>{
         console.log(err);
       })
+    }else{
+      this.$message({
+          message: '车牌号码不符合规范',
+          type: 'warning'
+        });
     }
   }
+}
 }
 </script>
 
@@ -143,6 +196,9 @@ watch:{
   width: 30%;
 
   background-color: rgb(255, 255, 255);
+}
+.jointable{
+  margin:auto;
 }
 .jointable tr{
   height: 80px;

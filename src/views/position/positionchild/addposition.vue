@@ -10,7 +10,7 @@
   <table id="addpositontable">
       <tr>
         <td style="width:100px"><el-tag>区域名称</el-tag></td>
-      <td ><el-input v-model="positionname" placeholder="请输入内容"></el-input>
+      <td ><el-input v-model="positionname" placeholder="请输入区域名称"></el-input>
 </td>
       </tr>
         <tr>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+
 export default {
     props:{
         changebox:Boolean
@@ -61,6 +62,7 @@ export default {
     },
      data() {
       return {
+        //弹窗控制
         addpositonbox:false,
         //新增区域信息
         positionname:'',

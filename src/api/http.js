@@ -1,45 +1,34 @@
 
 import axios from 'axios'
-import qs from 'qs'
-import { config } from 'vue/types/umd';
 
+const service = axios.create({
+    baseURL: 'http://localhost:3000',
+    timeout: 5000
+})
 
+//axios拦截器
+service.interceptors.request.use(config => {
 
-axios.defaults.baseURL='http://localhost:3000'
+    console.log('inter')
+    //这里可以设置那个请求加载时的图片
 
-/**设置超时时间和是否携带凭证 */
-axios.defaults.timeout=5000;
-axios.defaults.withCredentials=true
-
-/**设置请求传递数据的格式 */
-axios.defaults.headers['Content-Type']='application/x-www-form-urlencoded';
-axios.defaults.transformRequest=data=>qs.stringify(data);
-
-//请求拦截器
-axios.interceptors.request.use(()=>{
-    let token=localStorage.getItem('token')
-    token&&(config.headers.Authorzation=token);
-
+    //要把config放行     
     return config;
-},error=>{
-    return Promise.reject(error)
+}, err => {
+    console.log(err);
+    Promise.reject(err)
 })
 
-
-//响应拦截器
-axios.interceptors.response.use(()=>{
-
-        
-},error=>{
-
-})
-
-axios.get(url,{
-    params:{
-
+/*响应拦截 */
+service.interceptors.response.use(response => {
+    console.log(response)
+    if(response.data.flag!=0)
+    {
+        this.messageBox(response.data.message,'success')
     }
-}).then(res=>{
-
-}).catch(err=>{
+}, err => {
+    console.log(err)
+    return Promise.reject(err)
 
 })
+export default service

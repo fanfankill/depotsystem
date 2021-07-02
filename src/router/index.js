@@ -10,6 +10,9 @@ const administrators=()=>import('../views/administrators/administrators.vue')
 const parking=()=>import('../views/parking/parking.vue')
 const carjoin=()=>import('../views/carjoin/carjoin.vue')
 const carjoincontrol=()=>import('../views/carjoincontrol/carjoincontrol')
+const carpeople=()=>import('../views/carpeople/carpeople')
+const position=()=>import('../views/position/position')
+
 
 
 //安装插件
@@ -52,6 +55,11 @@ const routes = [
       path:'/parking',
       component:parking
     },
+      //区域管理
+      {
+        path:'/position',
+        component:position
+      },
     //进出车辆登记
      {
       path:'/carjoin',
@@ -61,6 +69,11 @@ const routes = [
        {
         path:'/carjoincontrol',
         component:  carjoincontrol
+      },
+      //车主信息登记和固定车位续费
+      {
+        path:'/carpeople',
+        component:  carpeople
       },
       
   

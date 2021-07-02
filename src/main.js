@@ -6,21 +6,17 @@ import router from  './router'/*别忘记给router去注册 用this.$routers.pus
 import store from './store/store'
 import axios from 'axios'
 
+import './assets/style/iconfont.css'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import echarts from 'echarts' 
 /**引入font awesome */
 import 'font-awesome/css/font-awesome.min.css'
 
-//socket.io
-import VueSocketIO from 'vue-socket.io'
-
-Vue.use(new VueSocketIO({
-  // 控制台调试 console.log
-  debug: true,
-  // 连接地址 后端提供
-  connection: 'http://localhost:3000',
-}))
+//引入全局message封装
+import { messageBox } from './message'
+Vue.mixin(messageBox)
 
 
 axios.defaults.baseURL='http://localhost:3000'

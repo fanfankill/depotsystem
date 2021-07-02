@@ -1,59 +1,213 @@
 <template>
   <div>
-       <el-table :data="tableData">
-            <el-table-column prop="AdminId" label="ID" width="140">
-            </el-table-column>
-            <el-table-column prop="AdminName" label="姓名" width="180">
-            </el-table-column>
-            <el-table-column prop="AdminRange" label="管辖范围"> </el-table-column>
-               <el-table-column prop="CreateTime" label="创建时间">
-                   <template slot-scope="scope">
-            <!-- 对传过来的时间进行处理 -->
-            <span>{{ scope.row.CreateTime.substring(0, 10) }}</span>
-          </template>
-           </el-table-column>
-             <el-table-column label="操作">
-      <template >
-        <el-button
-          size="mini"
-          >编辑</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-            >删除</el-button>
-      </template>
-    </el-table-column>
+   
 
-        </el-table>
+    
+        <el-skeleton  :loading="boxloading" animated >
+      <template slot="template">
+         
+
+         <div class="usershow" style="op" >
+      <div class="imgshow">
+             <el-skeleton-item
+          variant="image"
+         id="myimgshow">
+
+            </el-skeleton-item>
+          </div>
+             <el-divider></el-divider>
+           </div>
+
+         
+         
+      </template>
+
+ <template>
+      <div class="usershow">
+      <div class="imgshow">
+        <img v-if="userimg" id="myimgshow" :src="userimg" />
+        <img v-else id="myimgshow" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201704%2F27%2F20170427155254_Kctx8.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627744554&t=21df8146018e4b97dc638b5ebe7a4494">
+      </div>
+      <el-divider></el-divider>
+      <div class="basemesshow">
+          <div>
+            <span class="basemes">姓名：</span> <span class="privateshow">{{myprivate.nickname}}</span>
+          </div>
+        <div>
+            <span class="basemes">性别：</span> <span class="privateshow">{{myprivate.sex}}</span>
+        </div>
+         <div>
+            <span class="basemes">住址：</span><span class="privateshow">{{myprivate.address}}</span> 
+         </div>
+        <div>
+             <span class="basemes">加入时间：</span> <span class="privateshow">{{myprivate.jointime}}</span>
+        </div>
+           <div>
+             <span class="basemes">个性签名：</span> <span class="privateshow">{{myprivate.privatemes}}</span>
+           </div> 
+      </div>
+      <div class="changebtn">
+        <el-button type="primary">修改资料</el-button>
+        
+          <el-upload
+        action="http://localhost:3000/upload"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload"
+        :show-file-list="isshow"
+      >
+       
+       <el-button type="success">上传头像</el-button>
+      </el-upload>
+       
+      </div>
+    </div>
+
+    <div class="otherperson">
+
+    </div>
+ </template>
+        </el-skeleton>
   </div>
 </template>
 
 <script>
 export default {
-      data()  {
-   return {
-       tableData:[],
+  watch:{
+    userimg:function(newval)
+    {
+      console.log(newval);
+      this.userimg=newval
+    }
+  },
+  data() {
+    return {
+      //骨架
+      boxloading:true,
+      isshow:false,
+      userimg: "",
+      myprivate:{
+        // name:'fanfan',
+        // sex:'男',
+        // address:'长沙市雨花区恒大城',
+        // jointime:'2020-12-03',
+        // privaemes:'爱睡懒觉，爱谈吉他，爱敲代码，做一只无忧无虑的码农！开心生活，开心学习！'
+      }
     };
-    
   },
-created:function(){
-  this.getallperson()
-},
+  mounted: function () {
+  
+      setTimeout(()=>{
+           this.boxloading=false
+      },1000)
+      this.getmyimg()
+      this.getadminmessage()
+      
+  },
   methods: {
-    //获取所有管理员信息
-    getallperson() {
-        this.$axios.get("/getallperson")
-        .then((res) => {
-            this.tableData=res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    handleAvatarSuccess(res, file) {
+      console.log(res,file);
+      this.getadminmessage()
+      
     },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+
+      return isJPG && isLt2M;
+    },
+    //获取人员信息
+    getadminmessage:function()
+    {
+      this.$axios.get('/getadminmessage?AdminId='+sessionStorage.getItem('adminid')).then(res=>{
+     
+        this.myprivate=res.data.Adminmessage[0]
+        this.myprivate.jointime= this.myprivate.jointime.substring(0,10)
+          if(res.data.Adminmessage[0].userimg.substring(6))
+        this.userimg="http://localhost:3000/"+res.data.Adminmessage[0].userimg.substring(6)
+        //更新存储
+        sessionStorage.setItem("userimg",this.userimg)
+      })
+    },
+
+    getmyimg()
+    {
+        this.userimg ="http://localhost:3000/"+sessionStorage.getItem("userimg").substring(6);    
+    }
   },
-}
+};
 </script>
 
 <style>
+.usershow {
+  height: 600px;
+  width: 400px;
+  float: left;
+  background-color: rgba(255, 255, 253, 0.438);
+  box-shadow: 10px 10px 10px rgb(223, 223, 223);
+}
+.imgshow {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+#myimgshow{
+ 
+  z-index: 222;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
+}
+.basemesshow{
+  
+  display: flex;
+  flex-direction: column;
+
+}
+.basemesshow >div{
+  margin:5px 10px;
+  position: relative;
+}
+.basemes{
+  position: absolute;
+  top: 0;
+  text-align: right;
+  display: inline-block;
+  width: 80px;
+  color: rgb(121, 118, 118);
+}
+.privateshow{
+    float: right;
+    width: 300px;
+    height: 40px;
+     display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+    
+}
+.otherperson{
+  height: 600px;
+  width: 1200px;
+  background-color: rgb(255, 255, 255);
+   box-shadow: 10px 10px 10px rgb(223, 223, 223);
+  float: right;
+}
+
+.changebtn{
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
 </style>

@@ -29,7 +29,7 @@
           <el-checkbox v-model="checked">记住密码</el-checkbox>
         </div>
         <div class="login_btn">
-          <el-button type="primary" :loading="loading" @click="getmes"
+          <el-button id="loginbtn" type="primary" :loading="loading" @click="getmes"
             >登录</el-button
           >
         </div>
@@ -59,9 +59,7 @@ export default {
     };
   },
   created() {
-    if (
-      
-      this.getCookie("username") && this.getCookie("password")) {
+    if (this.getCookie("username") && this.getCookie("password")) {
       this.username = this.getCookie("username");
       this.password = this.getCookie("password");
       this.checked = true;
@@ -75,6 +73,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          sessionStorage.setItem('userimg',res.data.result[0].userimg)
 
           if (res.data.code == 0) {
             this.$message({
@@ -89,6 +88,10 @@ export default {
               message: res.data.message,
               type: "success",
             });
+            //sessionStorage存储
+            sessionStorage.setItem('adminname',res.data.result[0].nickname);
+            //存登录人员的id
+              sessionStorage.setItem('adminid',res.data.result[0].AdminId);
              this.$router.push("/mainshow");
           }
         })

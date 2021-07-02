@@ -1,6 +1,30 @@
 <template>
   <div>
-      <!-- 结账弹窗 -->
+
+          <el-skeleton  :loading="boxloading" animated >
+      <template slot="template">
+         
+         
+        <div>
+            <el-skeleton-item
+          variant="div"
+          class="topshowdiv"
+          style="width:220px;height:40px"
+        />
+          
+        </div>
+        <div>
+            <el-skeleton-item
+          variant="div"
+          class="topshowdiv"
+          style="width:100%;height:400px;margin-top:20px"
+        />
+        </div>
+         
+      </template>
+
+   <template>
+          <!-- 结账弹窗 -->
       <el-dialog
   title="车辆驶出"
   :visible.sync="carjoinend"
@@ -33,7 +57,7 @@
   </span>
 </el-dialog>
 
-  <el-select v-model="DoneValue" placeholder="请选择">
+  <el-select v-model="DoneValue" placeholder="请选择" style="margin-bottom:10px">
     <el-option
       v-for="item in donelist"
       :key="item.value"
@@ -46,6 +70,9 @@
             <el-table-column prop="Id" label="ID" width="140">
             </el-table-column>
             <el-table-column prop="CarNumber" label="车牌号码" width="180">
+                <template slot-scope="scope">
+                    {{scope.row.CarNumber.substr(0,2)}}-{{scope.row.CarNumber.substr(2,8)}}
+                </template>
             </el-table-column>
             <el-table-column prop="ComeTime" label="进入时间"> 
                 <template slot-scope="scope">
@@ -54,8 +81,8 @@
             </el-table-column>
              <el-table-column prop="LeaveTime" label="离开时间">
                    <template slot-scope="scope">
-                    <span  v-if="scope.row.LeaveTime" >{{scope.row.LeaveTime.slice(0, 10)+" "+scope.row.LeaveTime.slice(11, 16)}}</span>
-                     <span style="color:gray" v-else >未离开</span>
+                    <span  v-show="scope.row.IsDone==1" >{{scope.row.LeaveTime.slice(0, 10)+" "+scope.row.LeaveTime.slice(11, 16)}}</span>
+                     <span style="color:gray" v-show="scope.row.IsDone==0">未离开</span>
                 </template>
              </el-table-column>
                <el-table-column prop="position" label="停车区域">
@@ -80,10 +107,9 @@
 
       
     </el-table-column>
-
-     
-
         </el-table>
+   </template>
+          </el-skeleton>
   </div>
 </template>
 
@@ -99,10 +125,15 @@ export default {
     },
     created:function()
     {
-        this.getallcarjoin()
+       setTimeout(()=>{
+           this.boxloading=false
+            this.getallcarjoin()
+       },1000)
     },
     data() {
         return {
+            //骨架
+            boxloading:true,
             tableData:[],
 
             carjoinend:false,
@@ -156,7 +187,9 @@ export default {
             this.$axios.post('/removecarjoin',{
                 Id:this.joinId,
                 totalfare:this.costlist.fare*this.costlist.hours,
-                CarPortNumber:this.CarPortNumber
+                CarPortNumber:this.CarPortNumber,
+                //用于总表统计
+                type:0,
             }).then(res=>{
                 console.log(res);
                  this.$message({

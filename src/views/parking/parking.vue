@@ -1,24 +1,44 @@
 <template>
   <div>
+
+       <el-skeleton  :loading="boxloading" animated >
+      <template slot="template">
+         
+         
+        <div>
+            <el-skeleton-item
+          variant="div"
+          class="topshowdiv"
+          style="width:200px;height:40px"
+        />
+          <el-skeleton-item
+          variant="div"
+          class="topshowdiv"
+          style="margin-left:-5px;width:55px;height:40px"
+        />
+          <el-skeleton-item
+          variant="div"
+          class="topshowdiv"
+          style="float:right;;width:100px;height:40px"
+        />
+        </div>
+        <div>
+            <el-skeleton-item
+          variant="div"
+          class="topshowdiv"
+          style="width:100%;height:400px;margin-top:20px"
+        />
+        </div>
+         
+      </template>
+     
+
+      <template>
+        
     <!-- 新增车位弹出窗 -->
-    <el-dialog title="新增车位" :visible.sync="addpark">
-     <el-select v-model="toaddposition" placeholder="请选择停车区域">
-    <el-option
-      v-for="item in positions"
-      :key="item.descration"
-      :label="item.position"
-      :value="item.position">
-      <span style="float: left">{{ item.position }}</span>
-      <span style="float: right; color: #8492a6; font-size: 13px">￥{{ item.fare }}</span>
-    </el-option>
-  </el-select>
-    <span slot="footer" class="dialog-footer">
-    <el-button @click="addpark = false">取 消</el-button>
-    <el-button type="primary" @click="toaddpark">修 改</el-button>
-  </span>
-  
-    </el-dialog>
-    <!-- 新增区域弹窗 -->
+    <addpark :changebox='isaddpark' @changebox="parkchange"></addpark>
+
+    <!-- 新增区域子组件弹窗 -->
     <addposition :changebox='addpositonbox'  @changebox="positionchange"></addposition>
 
     <!-- 修改车位信息弹窗 -->
@@ -115,12 +135,13 @@
           >搜索</el-button
         >
       </div>
-       <el-button type="primary" @click="addpositonbox = true">新增区域</el-button>
+       <!-- <el-button type="primary" @click="addpositonbox = true">新增区域</el-button> -->
 
-      <el-button type="primary" @click="addpark = true">新增车位</el-button>
+      <el-button type="primary" @click="isaddpark = true">新增车位</el-button>
     </div>
     <div>
-      <el-table :data="tableData">
+      <el-table :data="tableData" 
+      v-loading='loading'>
         <el-table-column prop="CarportNumber" label="车位编号" width="140">
         </el-table-column>
           <el-table-column prop="position" label="车位区域">
@@ -156,11 +177,8 @@
         <el-table-column prop="DueDate" label="到期时间">
           <template slot-scope="scope">
             <!-- 对传过来的时间进行处理 -->
-            <span>{{
-              scope.row.DueDate == null
-                ? "无"
-                : scope.row.DueDate.substring(0, 10)
-            }}</span>
+            <span v-if=" scope.row.DueDate==null||scope.row.DueDate.substr(0,4)=='1970'">无</span>
+            <span v-else>{{scope.row.DueDate.substring(0, 10)}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="150">
@@ -190,23 +208,37 @@
   :page-size='parkpage'>
 </el-pagination>
     </div>
+      </template>
+        </el-skeleton>
+
+
+
   </div>
 </template>
 
 <script>
 import addposition from './parkingchild/addposition'
+import addpark from './parkingchild/addpark'
 export default {
   created: function () {
-    this.getallparkings();
-    this.getallpositons();
+    
+   setTimeout(()=>{
+      this.boxloading=false,
+    this.getallparkings();    
+   },1000)
+ 
   },
   components:{
-    addposition:addposition
+    addposition:addposition,
+    addpark:addpark
   },
   data() {
     return {
+      //骨架加载
+      boxloading:true,
+
       tableData: [],
-      addpark: false,
+      isaddpark: false,
       editpark: false,
       //分页区域
       parktotal:0,
@@ -230,6 +262,9 @@ export default {
        edittime:'',
        editiscar:true,
       editisfixed:false,
+
+      //loading样式
+      loading:true
      
     };
   },
@@ -246,27 +281,19 @@ export default {
 
     //分页获取所有车位信息
     getallparkings() {
+      this.loading=true
       this.$axios
         .get("/getallparking?currentpage="+this.currentpage+'&pagesize='+this.pagesize)
         .then((res) => {
           console.log(res);
           this.tableData = res.data.result2;
           this.parktotal=res.data.count
-          
+           this.loading=false
         })
         .catch((err) => {
           console.log(err);
+          this.loading=false
         });
-    },
-    //获取停车区域信息
-    getallpositons()
-    {
-      this.$axios('/getposition').then(res=>{
-        console.log(res);
-        this.positions=res.data.lists
-      }).catch(err=>{
-        console.log(err);
-      })
     },
     //根据车位编号查询
     searchId() {
@@ -298,26 +325,7 @@ export default {
           });
       }
     },
-    //新增车位
-   toaddpark(){
-     this.$axios
-            .post("/addparking", {
-              position: this.toaddposition,
-            })
-            .then((res) => {
-              console.log(res);
-              //重新获取更新的表单和弹窗消失
-               this.$message({
-            message: res.data.message,
-            type: "success",
-          });
-              this.addpark = false;
-              this.getallparkings();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-   },
+ 
     //修改车位信息
     toeditparking(row) {
     
@@ -371,6 +379,15 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+        //增加车位的子组件
+    parkchange(data)
+    {
+      console.log(data);
+        this.isaddpark=data;
+        this.getallparkings()
+
     },
     //子传父
     positionchange(data)
