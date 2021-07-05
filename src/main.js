@@ -14,6 +14,10 @@ import echarts from 'echarts'
 /**引入font awesome */
 import 'font-awesome/css/font-awesome.min.css'
 
+
+
+
+
 //引入全局message封装
 import { messageBox } from './message'
 Vue.mixin(messageBox)

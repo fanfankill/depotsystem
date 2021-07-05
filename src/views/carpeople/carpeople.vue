@@ -47,7 +47,7 @@
         </tr>
         <tr>
           <td><el-tag>车牌编号</el-tag></td>
-          <td>{{ addcarobj.CarNumber }}</td>
+          <td>{{ addcarobj.CarNumber}}</td>
         </tr>
         <tr>
           <td><el-tag>车位编号</el-tag></td>

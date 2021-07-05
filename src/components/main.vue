@@ -56,7 +56,19 @@
 
             <div class="userimg">
               <span class="username">{{ name }}</span>
-              <img id="myimg"  :src="userimg"/>
+
+
+
+              <el-dropdown>
+  <span class="el-dropdown-link">
+   <img id="myimg"  :src="userimg"/>
+  </span>
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item @click.native="gomymes">个人信息</el-dropdown-item>
+    <el-dropdown-item  @click.native="loginout">退出</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
+              
             </div>
           </div>
         </el-header>
@@ -72,9 +84,32 @@
 <script>
 export default {
   watch:{
-    userimg:function(newval){
-      console.log(newval);
-         this.userimg ="http://localhost:3000/"+sessionStorage.getItem("userimg").substring(6);    
+    UserImg:{
+        handler:function (newval){
+          this.userimg=newval
+        },
+         immediate: true
+    },
+    MyName:{
+      handler:function(newval){
+        this.name=newval
+      },
+      immediate:true
+    }
+    },
+      //计算属性
+  computed:{
+    UserImg:{
+      get(){
+        return this.$store.state.myuserimg;
+      },
+      
+    },
+    MyName:{
+      get(){
+        return this.$store.state.myname
+      },
+      immediate:true
     }
   },
   data() {
@@ -85,10 +120,25 @@ export default {
     };
   },
   mounted: function () {
-    this.name = sessionStorage.getItem("adminname");
+   
     this.geteverytime();
-    //头像
-    this.userimg ="http://localhost:3000/"+sessionStorage.getItem("userimg").substring(6);    
+    //vuex里面取头像
+    if(this.$store.state.myuserimg)
+    {
+       this.userimg =this.$store.state.myuserimg;
+    }else if(sessionStorage.getItem('myimg')){
+        this.userimg=sessionStorage.getItem('myimg')
+    }else{
+      this.userimg='http://localhost:3000/img/moren.jpg'
+    }
+    //vuex取名字
+    if(this.$store.state.myname)
+    {
+      this.name=this.$store.state.myname
+    }else{
+      this.name=sessionStorage.getItem('adminname')
+    }
+   
   },
   //每秒刷新的计时器
   methods: {
@@ -101,10 +151,22 @@ export default {
 
         var second = d.getSeconds();
 
-        document.getElementById("timeshow").innerHTML =
-          hour + " 时 " + min + " 分 " + second + " 秒 ";
+        document.getElementById("timeshow").innerHTML =hour + " 时 " + min + " 分 " + second + " 秒 ";
       }, 1000);
     },
+    //退出登录
+    loginout()
+    {
+      console.log('1');
+      //清空所有sessionStorage
+      sessionStorage.clear()
+      this.$router.push('/login')
+    },
+    //跳转我的资料
+    gomymes()
+    {
+      this.$router.push('/administrators')
+    }
   },
 };
 </script>

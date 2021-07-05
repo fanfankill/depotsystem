@@ -2,7 +2,9 @@
   <div>
    
 
-    
+        <!-- 修改个人基本信息弹窗 ref的功能就是用来获取DOM节点 -->
+        <editmessage ref="editmessage" @toldfather="getadminmessage"></editmessage>
+
         <el-skeleton  :loading="boxloading" animated >
       <template slot="template">
          
@@ -16,7 +18,19 @@
             </el-skeleton-item>
           </div>
              <el-divider></el-divider>
+             <el-skeleton :rows="8"
+             style="width:70%;margin-left:20px" />
            </div>
+           
+          
+          <el-skeleton-item
+          variant="div"
+         class="otherperson">
+
+            </el-skeleton-item>
+ 
+
+           
 
          
          
@@ -47,13 +61,14 @@
            </div> 
       </div>
       <div class="changebtn">
-        <el-button type="primary">修改资料</el-button>
+        <el-button type="primary" @click="chagenmes">修改资料</el-button>
         
           <el-upload
         action="http://localhost:3000/upload"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
         :show-file-list="isshow"
+        :data="imgdata"
       >
        
        <el-button type="success">上传头像</el-button>
@@ -63,7 +78,7 @@
     </div>
 
     <div class="otherperson">
-
+        <el-empty style="height:600px" description="作者太懒，没有留下什么..."></el-empty>
     </div>
  </template>
         </el-skeleton>
@@ -71,42 +86,49 @@
 </template>
 
 <script>
+import editmessage from './adminchild/editmes'
 export default {
-  watch:{
-    userimg:function(newval)
-    {
-      console.log(newval);
-      this.userimg=newval
-    }
-  },
+    watch:{
+      userimg:function(newval)
+      {
+        console.log(newval);
+        this.userimg=newval
+      }
+    },
   data() {
     return {
       //骨架
       boxloading:true,
       isshow:false,
       userimg: "",
-      myprivate:{
-        // name:'fanfan',
-        // sex:'男',
-        // address:'长沙市雨花区恒大城',
-        // jointime:'2020-12-03',
-        // privaemes:'爱睡懒觉，爱谈吉他，爱敲代码，做一只无忧无虑的码农！开心生活，开心学习！'
-      }
+      //个人基本资料数据
+      myprivate:{},
+      //img携带的数据
+      imgdata:{
+        AdminId:sessionStorage.getItem('adminid')
+      },
+      //控制弹窗
+      isedit:false
     };
+  },
+  components:{
+    editmessage,
   },
   mounted: function () {
   
       setTimeout(()=>{
            this.boxloading=false
       },1000)
-      this.getmyimg()
       this.getadminmessage()
-      
+
+         
+    
   },
   methods: {
     handleAvatarSuccess(res, file) {
       console.log(res,file);
       this.getadminmessage()
+      this.messageBox('上传成功！','success')
       
     },
     beforeAvatarUpload(file) {
@@ -125,20 +147,32 @@ export default {
     getadminmessage:function()
     {
       this.$axios.get('/getadminmessage?AdminId='+sessionStorage.getItem('adminid')).then(res=>{
-     
+        console.log(res);
         this.myprivate=res.data.Adminmessage[0]
         this.myprivate.jointime= this.myprivate.jointime.substring(0,10)
-          if(res.data.Adminmessage[0].userimg.substring(6))
-        this.userimg="http://localhost:3000/"+res.data.Adminmessage[0].userimg.substring(6)
+        
+        let commitimg='http://localhost:3000'+res.data.Adminmessage[0].userimg.substring(6)
+        //上传到vuex
+        this.$store.commit('changeimg',commitimg)
+
         //更新存储
-        sessionStorage.setItem("userimg",this.userimg)
+         //从vuex里面取值
+        this.userimg=this.$store.state.myuserimg
+        
       })
     },
 
-    getmyimg()
+    //修改个人基本资料
+    chagenmes()
     {
-        this.userimg ="http://localhost:3000/"+sessionStorage.getItem("userimg").substring(6);    
+      
+      this.isedit=true
+
+      let editobj=JSON.stringify(this.myprivate)
+      this.$refs.editmessage.editmes(this.isedit,JSON.parse(editobj))
     }
+
+   
   },
 };
 </script>
@@ -198,7 +232,7 @@ export default {
 }
 .otherperson{
   height: 600px;
-  width: 1200px;
+  width: 850px;
   background-color: rgb(255, 255, 255);
    box-shadow: 10px 10px 10px rgb(223, 223, 223);
   float: right;

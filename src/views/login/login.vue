@@ -29,7 +29,7 @@
           <el-checkbox v-model="checked">记住密码</el-checkbox>
         </div>
         <div class="login_btn">
-          <el-button id="loginbtn" type="primary" :loading="loading" @click="getmes"
+          <el-button id="loginbtn"  type="primary" :loading="loading" @click="getmes"
             >登录</el-button
           >
         </div>
@@ -64,6 +64,7 @@ export default {
       this.password = this.getCookie("password");
       this.checked = true;
     }
+    
   },
   methods: {
     getmes() {
@@ -92,6 +93,14 @@ export default {
             sessionStorage.setItem('adminname',res.data.result[0].nickname);
             //存登录人员的id
               sessionStorage.setItem('adminid',res.data.result[0].AdminId);
+              //vuex里面存人员头像
+              let getmyimg='http://localhost:3000'+res.data.result[0].userimg.substring(6)
+              console.log(getmyimg);
+              this.$store.commit('changeimg',getmyimg)
+              //也往sessionStorage里面存东西 防止页面刷新时候头像没了
+                  sessionStorage.setItem('myimg',getmyimg);
+              //可以取到头像
+              // console.log(this.$store.state.myuserimg);
              this.$router.push("/mainshow");
           }
         })

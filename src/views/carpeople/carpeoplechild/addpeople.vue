@@ -14,10 +14,9 @@
         <tr>
           <td><el-tag>车牌号码</el-tag></td>
           <td>
-            <el-input
-              v-model="CarNumber"
-              placeholder="请输入车牌号码"
-            ></el-input>
+            <el-input style="width:80px;float:left" v-model="firtsCarNumber" placeholder="地区号"></el-input>
+                <span>-</span>
+                 <el-input style="width:140px" v-model="secondeCarNumber" placeholder="车牌号码"></el-input>
           </td>
         </tr>
         <tr>
@@ -135,7 +134,11 @@ export default {
       nofixcarport:[],
 
        //车主信息
+       //防止车牌号码自己打出-
       CarNumber: "",
+      firtsCarNumber:"",
+      secondeCarNumber:"",
+
       CarportNumber: "",
       PersonName: "",
       Adress: "",
@@ -177,7 +180,7 @@ export default {
 
      //新增车主信息
     addpeoplemessage() {
-
+          this.CarNumber=this.firtsCarNumber+this.secondeCarNumber
          //先进价格表
         this.$axios.post('/getfare',{
           type:1,

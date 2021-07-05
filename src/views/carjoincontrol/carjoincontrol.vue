@@ -20,6 +20,8 @@
           style="width:100%;height:400px;margin-top:20px"
         />
         </div>
+
+     
          
       </template>
 
@@ -66,6 +68,14 @@
     </el-option>
   </el-select>
 
+<div class="carsearch">
+         <el-input style="width:80px;float:left" placeholder="地区号" v-model="tosearchcar1" size="middle"></el-input>
+         <span style="float:left;display:inline-block;height: 40px;line-height: 40px;">-</span>
+     <el-input style="width:130px;float:left" placeholder="车牌号" v-model="tosearchcar2" size="middle"></el-input>
+     <el-button  style="float:right" type="primary" @click="searchcar">搜索</el-button>
+</div>
+ 
+
         <el-table :data="tableData">
             <el-table-column prop="Id" label="ID" width="140">
             </el-table-column>
@@ -75,13 +85,11 @@
                 </template>
             </el-table-column>
             <el-table-column prop="ComeTime" label="进入时间"> 
-                <template slot-scope="scope">
-                    <span >{{scope.row.ComeTime.slice(0, 10)+" "+scope.row.ComeTime.slice(11, 16)}}</span>
-                </template>
+               
             </el-table-column>
              <el-table-column prop="LeaveTime" label="离开时间">
                    <template slot-scope="scope">
-                    <span  v-show="scope.row.IsDone==1" >{{scope.row.LeaveTime.slice(0, 10)+" "+scope.row.LeaveTime.slice(11, 16)}}</span>
+                    <span  v-show="scope.row.IsDone==1" >{{scope.row.LeaveTime}}</span>
                      <span style="color:gray" v-show="scope.row.IsDone==0">未离开</span>
                 </template>
              </el-table-column>
@@ -151,7 +159,10 @@ export default {
                 value:1},
                 {label:'未出库',
                 value:0}
-            ]
+            ],
+            //搜索车牌号码车辆
+            tosearchcar1:'',
+            tosearchcar2:''
         }
     },
     methods:{
@@ -162,6 +173,13 @@ export default {
             this.$axios.get('/getallcarjoin?isdone='+this.DoneValue).then(res=>{
                 console.log(res);
                 this.tableData=res.data
+                //切割字符串处理
+                 this.tableData.forEach((v)=>{
+                     v.ComeTime=v.ComeTime.substring(0,10)+ ' '+v.ComeTime.substring(11,16)
+                      v.LeaveTime=v.LeaveTime.substring(0,10)+ ' '+v.LeaveTime.substring(11,16)
+                 })
+                
+                
             }).catch(err=>{
                 console.log(err);
             })
@@ -179,6 +197,32 @@ export default {
             }).catch(err=>{
                 console.log(err);
             })
+        },
+        //搜索汽车
+        searchcar()
+        {
+               if(this.tosearchcar1&&this.tosearchcar2)
+               {
+                    this.$axios.post('searchcar',{
+                    CarNumber:(this.tosearchcar1+this.tosearchcar2),
+                    IsDone:this.DoneValue
+                }).then(res=>{
+                    console.log(res);
+                    this.messageBox(res.data.message,res.data.flag==1?'success':'warning')
+                    if(res.data.flag==1)
+                    {
+                        this.tableData=res.data.result
+                         //切割字符串处理
+                 this.tableData.forEach((v)=>{
+                     v.ComeTime=v.ComeTime.substring(0,10)+ ' '+v.ComeTime.substring(11,16)
+                      v.LeaveTime=v.LeaveTime.substring(0,10)+ ' '+v.LeaveTime.substring(11,16)
+                 })
+                    }
+                })
+               }
+               else{
+                   this.getallcarjoin()
+               }
         },
         //提交离开请求
         removecarjoin()
@@ -213,4 +257,9 @@ export default {
 #carjointab td{
     padding-right:20px;
 }
+.carsearch{
+    float: right;
+    width: 300px;
+}
+
 </style>

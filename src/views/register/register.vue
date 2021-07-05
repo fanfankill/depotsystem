@@ -20,7 +20,7 @@
             size="small"
             placeholder="请输入密码"
             prefix-icon="el-icon-lock"
-            v-model="password"
+            v-model="password1"
             show-password
           ></el-input>
         </div>
@@ -29,22 +29,22 @@
             size="small"
             placeholder="请再次输入密码"
             prefix-icon="el-icon-lock"
-            v-model="password"
-            show-password
-          ></el-input>
-        </div>
-         <div class="login_input">
-          <el-input
-            size="small"
-            placeholder="请输入邀请码"
-            prefix-icon="el-icon-lock"
-            v-model="password"
+            v-model="password2"
             show-password
           ></el-input>
         </div>
 
+         <div class="login_input">
+          <el-input
+            size="small"
+            placeholder="请输入邀请码"
+            prefix-icon="el-icon-position"
+            v-model="mycode"
+          ></el-input>
+        </div>
+
         <div class="login_btn">
-          <el-button type="primary" :loading="loading" @click="getmes"
+          <el-button type="primary" :loading="loading" @click="register"
             >注册</el-button
           >
         </div>
@@ -60,12 +60,48 @@
 export default {
   data() {
     return {
-    
+    username:'',
+    password1:'',
+    password2:'',
+    mycode:'',
+    loading:false
+
     };
   },
   
 
   methods: {
+    //注册
+    register()
+    {
+       if(this.username&&this.password1&&this.mycode)
+       {
+          if(this.password1.length>=8)
+        {
+            if(this.password1==this.password2)
+            {
+                this.$axios.post('/register',{
+                  username:this.username,
+                  password:this.password1,
+                  mycode:this.mycode
+                }).then(res=>{
+                  console.log(res);
+                  this.messageBox(res.data.message,res.data.flag==1?'success':'error')
+                  if(res.data.flag==1)
+                  {
+                    this.$router.push('/login')
+                  }
+                })
+            }else{
+                this.messageBox('两次输入密码不一致','warning')
+            }
+        }else{
+          this.messageBox('密码长度要大于8位','warning')
+        }
+       }else{
+         this.messageBox('信息填写不全','warning')
+       }
+    }
   }
 
   

@@ -89,20 +89,25 @@ const router = new VueRouter({
 })
 
 
+//未登录不允许访问
+router.beforeEach((to, from, next) => {
 
-/**router.beforeEach((to, from, next) => {
-  if (to.path === '/login') {
-    next();
+  let token = sessionStorage.getItem('adminid')
+  if (token) {
+    if (to.path === '/login') {
+      next({ path: '/mainshow' });
+    } else {
+      next();
+    }
   } else {
-    let token = localStorage.getItem('Authorization');
- 
-    if (token === 'null' || token === '') {
-      next('/login');
+    if (to.path !== '/login'&&to.path!=='/register') {
+      next({ path: '/login' });
     } else {
       next();
     }
   }
-}); */
+}
+); 
 
 //导出对象
 export default router
