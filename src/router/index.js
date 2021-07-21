@@ -12,6 +12,7 @@ const carjoin=()=>import('../views/carjoin/carjoin.vue')
 const carjoincontrol=()=>import('../views/carjoincontrol/carjoincontrol')
 const carpeople=()=>import('../views/carpeople/carpeople')
 const position=()=>import('../views/position/position')
+const allchat=()=>import('../views/allchat/allchat')
 
 
 
@@ -43,37 +44,68 @@ const routes = [
     //管理员展示页面
     {
       path:'/administrators',
-      component:administrators
+      component:administrators,
+      meta: {
+        keepAlive: false,   //是否缓存（缓存后不刷新）
+    }
     },
     //数据展示页面
 {
   path:'/mainshow',
-  component:mainshow
+  component:mainshow,
+  meta: {
+    keepAlive: false,   //是否缓存（缓存后不刷新）
+}
 },
     //车位管理
     {
       path:'/parking',
-      component:parking
+      component:parking,
+      meta: {
+        keepAlive: false,   //是否缓存（缓存后不刷新）
+    }
     },
       //区域管理
       {
         path:'/position',
-        component:position
+        component:position,
+        meta: {
+          keepAlive: false,   //是否缓存（缓存后不刷新）
+      }
       },
     //进出车辆登记
      {
       path:'/carjoin',
-      component:carjoin
+      component:carjoin,
+      meta: {
+        keepAlive: false,   //是否缓存（缓存后不刷新）
+    }
     },
        //进出车辆管理页面
        {
         path:'/carjoincontrol',
-        component:  carjoincontrol
+        component:  carjoincontrol,
+        meta: {
+          keepAlive: false,   //是否缓存（缓存后不刷新）
+      }
       },
       //车主信息登记和固定车位续费
       {
         path:'/carpeople',
-        component:  carpeople
+        component:  carpeople,
+        meta: {
+          keepAlive: false,   //是否缓存（缓存后不刷新）
+      }
+      },
+      //群聊
+      {
+        path:'/allchat',
+        name:'allchat',
+        component:  allchat,
+        meta: {
+          keepAlive: true,   //是否缓存（缓存后不刷新）
+      }
+        
       },
       
   
@@ -101,6 +133,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (to.path !== '/login'&&to.path!=='/register') {
+      
       next({ path: '/login' });
     } else {
       next();

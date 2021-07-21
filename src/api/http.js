@@ -22,10 +22,7 @@ service.interceptors.request.use(config => {
 /*响应拦截 */
 service.interceptors.response.use(response => {
     console.log(response)
-    if(response.data.flag!=0)
-    {
-        this.messageBox(response.data.message,'success')
-    }
+    
 }, err => {
     console.log(err)
     return Promise.reject(err)

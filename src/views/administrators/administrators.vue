@@ -78,7 +78,33 @@
     </div>
 
     <div class="otherperson">
-        <el-empty style="height:600px" description="作者太懒，没有留下什么..."></el-empty>
+     <div class="adminmesdiv" v-for="item in othermes" :key="item.AdminId">
+        <div class="otherimg">
+          <img :src="item.userimg" alt="">
+          <p>{{item.nickname}}</p>
+        </div>
+           <el-divider></el-divider>
+      <table id="ohetrmestable">
+        <tr>
+          <td class="firsttd">性别：</td>
+          <td class="secondtd">{{item.sex}}</td>
+        </tr>
+         <tr>
+          <td class="firsttd">住址：</td>
+          <td class="secondtd">{{item.address}}</td>
+        </tr>
+         <tr>
+          <td class="firsttd" >加入时间：</td>
+          <td class="secondtd">{{item.jointime}}</td>
+        </tr>
+         <tr>
+          <td class="firsttd">个性签名：</td>
+          <td class="secondtd">{{item.privatemes}}</td>
+        </tr>
+      </table>
+      
+     </div>
+    
     </div>
  </template>
         </el-skeleton>
@@ -103,6 +129,8 @@ export default {
       userimg: "",
       //个人基本资料数据
       myprivate:{},
+      //其他管理员资料数据
+      othermes:[],
       //img携带的数据
       imgdata:{
         AdminId:sessionStorage.getItem('adminid')
@@ -115,13 +143,15 @@ export default {
     editmessage,
   },
   mounted: function () {
-  
+     
       setTimeout(()=>{
            this.boxloading=false
       },1000)
       this.getadminmessage()
-
+      this.getalladmin()
+    
          
+
     
   },
   methods: {
@@ -161,6 +191,19 @@ export default {
         
       })
     },
+    //获取所有管理员信息
+    getalladmin()
+    {
+      this.$axios.get('/getallperson?AdminId='+sessionStorage.getItem('adminid')).then(res=>{
+        console.log(res);
+        this.othermes=res.data
+        //对头像和加入时间进行处理
+        this.othermes.forEach(v=>{
+          v.userimg='http://localhost:3000'+v.userimg.substring(6)
+          v.jointime=v.jointime.substring(0,10)
+        })
+      })
+    },
 
     //修改个人基本资料
     chagenmes()
@@ -171,9 +214,8 @@ export default {
       let editobj=JSON.stringify(this.myprivate)
       this.$refs.editmessage.editmes(this.isedit,JSON.parse(editobj))
     }
-
-   
   },
+
 };
 </script>
 
@@ -230,18 +272,75 @@ export default {
   -webkit-line-clamp: 2;
     
 }
-.otherperson{
-  height: 600px;
-  width: 850px;
-  background-color: rgb(255, 255, 255);
-   box-shadow: 10px 10px 10px rgb(223, 223, 223);
-  float: right;
-}
-
 .changebtn{
   margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+/**其他管理员展示 */
+.otherperson{
+  height: 600px;
+  width: 850px;
+  background-color: rgb(219, 219, 219);
+   box-shadow: 10px 10px 10px rgb(223, 223, 223);
+  float: right;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  overflow: hidden;
+  overflow-y:scroll;
+}
+
+.adminmesdiv{
+  width:300px;
+  height: 460px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 10px 10px rgb(172, 171, 171);
+  margin-top: 20px;
+    overflow: hidden;
+  
+}
+
+.otherimg{
+  width: 100px;
+  margin: auto;
+  margin-top: 20px;
+
+}
+.otherimg img{
+  width: 100%;
+  height: 100px;
+  border-radius:100% ;
+}
+.otherimg p{
+  text-align: center;
+  color: rgb(133, 121, 121);
+}
+
+#ohetrmestable{
+  margin-left:20px
+}
+#ohetrmestable tr{
+  height: 40px;
+}
+#ohetrmestable td{
+  line-height: 40px;
+}
+.firsttd{
+  text-align: right;
+  color: gray;
+  display: inline-block;
+  width: 90px;
+  line-height: 40px;
+  
+}
+.secondtd{
+  width:180px;
+  display:inline-block;
+    overflow: hidden;/*超出部分隐藏*/
+   white-space: nowrap;/*不换行*/
+   text-overflow:ellipsis;/*超出部分文字以...显示*/
 }
 </style>

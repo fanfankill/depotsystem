@@ -1,9 +1,9 @@
-import request from './http'
+import service from './http'
 
-export function getallposition(url,method,data){
-    return request({
-        url,
-        method,
+export const login=data=>{
+    return service({
+        url:'/login',
+        method:'post',
         data
     })
        

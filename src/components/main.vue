@@ -26,7 +26,7 @@
 
           <el-menu-item index="/carjoin">
             <i class="iconfont icon-huaban39"></i>
-            <span slot="title">进出车辆登记</span>
+            <span slot="title">车辆登记</span>
           </el-menu-item>
 
           <el-menu-item index="/carpeople">
@@ -42,6 +42,11 @@
           <el-menu-item index="/administrators">
             <i class="iconfont icon-guanliyuan"></i>
             <span slot="title">管理员界面</span>
+          </el-menu-item>
+
+            <el-menu-item index="/allchat">
+            <i class="iconfont icon-guanliyuan"></i>
+            <span slot="title">一起聊天</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -74,7 +79,11 @@
         </el-header>
 
         <el-main>
-          <router-view></router-view>
+   
+         <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"/>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"/>
         </el-main>
       </el-container>
     </el-container>
@@ -109,8 +118,7 @@ export default {
       get(){
         return this.$store.state.myname
       },
-      immediate:true
-    }
+      }
   },
   data() {
     return {

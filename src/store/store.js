@@ -11,6 +11,7 @@ export default new Vuex.Store({
         myuserimg:'',
         //名字
         myname:'',
+       
       
      
         
@@ -38,8 +39,8 @@ export default new Vuex.Store({
         changename(state,name)
         {
             state.myname=name
-        }
-
+        },
+      
     },
     actions:{
             /*Action 提交的是 mutation，而不是直接变更状态。

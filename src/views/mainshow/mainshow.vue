@@ -220,9 +220,13 @@ export default {
         {
           days.push(v.day.substring(5,10))
         }
+        
         v.totaldayfare
         totalprice.push(v.totaldayfare)
         })
+
+        days=days.reverse()
+        totalprice=totalprice.reverse()
         console.log(totalprice);
       
         var myChart = echarts.init(document.getElementById("xian"));

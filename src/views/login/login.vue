@@ -64,8 +64,18 @@ export default {
       this.password = this.getCookie("password");
       this.checked = true;
     }
+           //回车发送消息     
+    document.onkeydown = (e) =>{
+      console.log('1');
+      var ev = document.all ? window.event : e;
+      if (ev.keyCode == 13) {
+       this.getmes()
+      }
+    }
+
     
   },
+
   methods: {
     getmes() {
       axios.post("/login", {
