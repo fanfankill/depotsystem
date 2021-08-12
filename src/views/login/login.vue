@@ -29,7 +29,7 @@
           <el-checkbox v-model="checked">记住密码</el-checkbox>
         </div>
         <div class="login_btn">
-          <el-button id="loginbtn"  type="primary" :loading="loading" @click="getmes"
+          <el-button id="loginbtn"  @keyup.enter="getmes" type="primary" :loading="loading" @click="getmes"
             >登录</el-button
           >
         </div>
@@ -64,14 +64,7 @@ export default {
       this.password = this.getCookie("password");
       this.checked = true;
     }
-           //回车发送消息     
-    document.onkeydown = (e) =>{
-      console.log('1');
-      var ev = document.all ? window.event : e;
-      if (ev.keyCode == 13) {
-       this.getmes()
-      }
-    }
+ 
 
     
   },
@@ -104,13 +97,16 @@ export default {
             //存登录人员的id
               sessionStorage.setItem('adminid',res.data.result[0].AdminId);
               //vuex里面存人员头像
-              let getmyimg='http://localhost:3000'+res.data.result[0].userimg.substring(6)
+              let getmyimg='http://139.196.87.221:3000'+res.data.result[0].userimg.substring(6)
               console.log(getmyimg);
               this.$store.commit('changeimg',getmyimg)
               //也往sessionStorage里面存东西 防止页面刷新时候头像没了
                   sessionStorage.setItem('myimg',getmyimg);
               //可以取到头像
               // console.log(this.$store.state.myuserimg);
+              //给iphone发登录消息
+              axios.get('https://api.day.app/sSA3xJGKscqrsWYyeNgpvW/停车场网站/'+res.data.result[0].nickname+'登录了!')
+              
              this.$router.push("/mainshow");
           }
         })
@@ -166,7 +162,7 @@ export default {
 <style>
 #main {
   width: 100%;
-  height: 760px;
+  height: 100vh;
   background-color: aqua;
   background: url(../../assets/img/bag1.jpg);
   background-repeat: no-repeat;

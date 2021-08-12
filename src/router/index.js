@@ -13,23 +13,61 @@ const carjoincontrol=()=>import('../views/carjoincontrol/carjoincontrol')
 const carpeople=()=>import('../views/carpeople/carpeople')
 const position=()=>import('../views/position/position')
 const allchat=()=>import('../views/allchat/allchat')
-
-
+//ui组件展示页面
+const mycomponents =()=>import('../views/justforcom/showcompent')
+//btn
+const componentbtn=()=>import ('../views/justforcom/compentchildren/btn')
+//input
+const componentinput=()=>import('../views/justforcom/compentchildren/input')
 
 //安装插件
 Vue.use(VueRouter)
 
 //创建路由对象
 const routes = [
- 
+ //登录
 { 
    path: '*',
    redirect: '/login' 
 },
-    
+//登录面
 {
   path:'/login',
   component:login
+},
+
+//ui组件页面
+{
+  path:'/showcompent',
+  component:mycomponents,
+  meta: {
+    keepAlive: false,   //是否缓存（缓存后不刷新）
+    needtoken:false      //权限路由
+},
+children:[
+  {
+    path:'/showcompent/btn',
+    component:componentbtn,
+    meta: {
+      keepAlive: false,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
+
+  {
+    path:'/showcompent/input',
+    component:componentinput,
+    meta: {
+      keepAlive: false,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
+  
+
+
+
+]
+
 },
 
 {
@@ -47,6 +85,7 @@ const routes = [
       component:administrators,
       meta: {
         keepAlive: false,   //是否缓存（缓存后不刷新）
+        needtoken:true      //权限路由
     }
     },
     //数据展示页面
@@ -55,6 +94,7 @@ const routes = [
   component:mainshow,
   meta: {
     keepAlive: false,   //是否缓存（缓存后不刷新）
+    needtoken:true
 }
 },
     //车位管理
@@ -63,6 +103,7 @@ const routes = [
       component:parking,
       meta: {
         keepAlive: false,   //是否缓存（缓存后不刷新）
+        needtoken:true
     }
     },
       //区域管理
@@ -71,6 +112,7 @@ const routes = [
         component:position,
         meta: {
           keepAlive: false,   //是否缓存（缓存后不刷新）
+          needtoken:true
       }
       },
     //进出车辆登记
@@ -79,6 +121,7 @@ const routes = [
       component:carjoin,
       meta: {
         keepAlive: false,   //是否缓存（缓存后不刷新）
+        needtoken:true
     }
     },
        //进出车辆管理页面
@@ -87,6 +130,7 @@ const routes = [
         component:  carjoincontrol,
         meta: {
           keepAlive: false,   //是否缓存（缓存后不刷新）
+          needtoken:true
       }
       },
       //车主信息登记和固定车位续费
@@ -95,6 +139,7 @@ const routes = [
         component:  carpeople,
         meta: {
           keepAlive: false,   //是否缓存（缓存后不刷新）
+          needtoken:true
       }
       },
       //群聊
@@ -104,6 +149,7 @@ const routes = [
         component:  allchat,
         meta: {
           keepAlive: true,   //是否缓存（缓存后不刷新）
+          needtoken:false
       }
         
       },
@@ -116,23 +162,24 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes,
-  mode: 'history'/*把网页的#号去掉*/
+  routes
 })
 
 
 //未登录不允许访问
 router.beforeEach((to, from, next) => {
 
+
   let token = sessionStorage.getItem('adminid')
   if (token) {
+   
     if (to.path === '/login') {
-      next({ path: '/mainshow' });
+      next();
     } else {
       next();
     }
   } else {
-    if (to.path !== '/login'&&to.path!=='/register') {
+    if (to.path !== '/login'&&to.path!=='/register'&&to.meta.needtoken==true) {
       
       next({ path: '/login' });
     } else {

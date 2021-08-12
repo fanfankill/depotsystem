@@ -234,7 +234,7 @@ export default {
   margin: auto;
   height: 540px;
   width: 1000px;
-    background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202010%2F09%2F20201009203101_7c5aa.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628135260&t=c07dea1de13a1d448f6cdf9f34808647);
+    background: url(https://img2.baidu.com/it/u=1519171733,3964613902&fm=26&fmt=auto&gp=0.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -257,6 +257,8 @@ export default {
   position: absolute;
   left: 0px;
   top: 0;
+  overflow: hidden;
+  overflow-y:scroll ;
 }
 #currentpeople{
   text-align: center;

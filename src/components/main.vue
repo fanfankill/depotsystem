@@ -48,6 +48,12 @@
             <i class="iconfont icon-guanliyuan"></i>
             <span slot="title">一起聊天</span>
           </el-menu-item>
+
+             <el-menu-item index="/showcompent">
+            <i class="el-icon-files "></i>
+            <span slot="title">组件 </span>
+          </el-menu-item>
+          
         </el-menu>
       </el-aside>
 
@@ -58,6 +64,7 @@
               <i class="iconfont icon-time"></i>
               <span id="timeshow"></span>
             </div>
+            
 
             <div class="userimg">
               <span class="username">{{ name }}</span>
@@ -68,6 +75,7 @@
   <span class="el-dropdown-link">
    <img id="myimg"  :src="userimg"/>
   </span>
+  
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item @click.native="gomymes">个人信息</el-dropdown-item>
     <el-dropdown-item  @click.native="loginout">退出</el-dropdown-item>
@@ -116,6 +124,7 @@ export default {
     },
     MyName:{
       get(){
+        console.log(this.$store.state.myname);
         return this.$store.state.myname
       },
       }
@@ -137,7 +146,7 @@ export default {
     }else if(sessionStorage.getItem('myimg')){
         this.userimg=sessionStorage.getItem('myimg')
     }else{
-      this.userimg='http://localhost:3000/img/moren.jpg'
+      this.userimg='http://139.196.87.221:3000/img/moren.jpg'
     }
     //vuex取名字
     if(this.$store.state.myname)
@@ -177,9 +186,14 @@ export default {
     }
   },
 };
-</script>
+</script >
 
-<style>
+<style scope>
+@media screen and (min-width:0px) and (max-width:600px){
+  .el-aside {
+    display: none;
+  }
+}
 .el-header,
 .el-footer {
   background-color: #545c64;
@@ -195,7 +209,7 @@ export default {
 }
 .el-aside {
   color: #333;
-  height: 755px;
+  height: 100vh;
 }
 #childshow {
   display: flex;

@@ -5,9 +5,9 @@ import App from './App.vue'
 import router from './router'/*别忘记给router去注册 用this.$routers.push 名字这样取的*/
 import store from './store/store'
 import axios from 'axios'
-//自我封装组件
-import AlleyUI from "./components"
 
+//引入手写组件
+import fanui from './components/fanfanui'
 
 import './assets/style/iconfont.css'
 
@@ -29,19 +29,21 @@ Vue.use(new VueSocketIO({
 
   debug: true,
 
-  connection: 'http://localhost:3002'
+  connection: 'http://139.196.87.221:3002'
 
 }))
 
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://139.196.87.221:3000'
 
 Vue.prototype.$echarts = echarts
 
 Vue.prototype.$axios = axios
 
 Vue.use(ElementUI)
-Vue.use(AlleyUI)
+
+Vue.use(fanui)
+
 
 //图表
 Vue.prototype.$echarts = echarts

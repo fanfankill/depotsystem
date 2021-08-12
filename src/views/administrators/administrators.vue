@@ -64,7 +64,7 @@
         <el-button type="primary" @click="chagenmes">修改资料</el-button>
         
           <el-upload
-        action="http://localhost:3000/upload"
+        action="http://139.196.87.221:3000/upload"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
         :show-file-list="isshow"
@@ -181,7 +181,7 @@ export default {
         this.myprivate=res.data.Adminmessage[0]
         this.myprivate.jointime= this.myprivate.jointime.substring(0,10)
         
-        let commitimg='http://localhost:3000'+res.data.Adminmessage[0].userimg.substring(6)
+        let commitimg='http://139.196.87.221:3000'+res.data.Adminmessage[0].userimg.substring(6)
         //上传到vuex
         this.$store.commit('changeimg',commitimg)
 
@@ -199,7 +199,7 @@ export default {
         this.othermes=res.data
         //对头像和加入时间进行处理
         this.othermes.forEach(v=>{
-          v.userimg='http://localhost:3000'+v.userimg.substring(6)
+          v.userimg='http://139.196.87.221:3000'+v.userimg.substring(6)
           v.jointime=v.jointime.substring(0,10)
         })
       })
