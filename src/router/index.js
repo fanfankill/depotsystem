@@ -19,6 +19,13 @@ const mycomponents =()=>import('../views/justforcom/showcompent')
 const componentbtn=()=>import ('../views/justforcom/compentchildren/btn')
 //input
 const componentinput=()=>import('../views/justforcom/compentchildren/input')
+//message
+const componentmessage=()=>import('../views/justforcom/compentchildren/message')
+//alert
+const componentalert=()=>import('../views/justforcom/compentchildren/alert')
+//badge
+const componentbadge=()=>import('../views/justforcom/compentchildren/badge')
+
 
 //安装插件
 Vue.use(VueRouter)
@@ -41,7 +48,7 @@ const routes = [
   path:'/showcompent',
   component:mycomponents,
   meta: {
-    keepAlive: false,   //是否缓存（缓存后不刷新）
+    keepAlive: true,   //是否缓存（缓存后不刷新）
     needtoken:false      //权限路由
 },
 children:[
@@ -49,7 +56,7 @@ children:[
     path:'/showcompent/btn',
     component:componentbtn,
     meta: {
-      keepAlive: false,   //是否缓存（缓存后不刷新）
+      keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由
   }
   },
@@ -58,15 +65,40 @@ children:[
     path:'/showcompent/input',
     component:componentinput,
     meta: {
-      keepAlive: false,   //是否缓存（缓存后不刷新）
+      keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由
   }
   },
   
+  {
+    path:'/showcompent/message',
+    component:componentmessage,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
 
+  {
+    path:'/showcompent/alert',
+    component:componentalert,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
 
+  {
+    path:'/showcompent/badge',
+    component:componentbadge,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
 
-]
+  
+      ]
 
 },
 
@@ -180,7 +212,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (to.path !== '/login'&&to.path!=='/register'&&to.meta.needtoken==true) {
-      
+      console.log('未登录');
       next({ path: '/login' });
     } else {
       next();

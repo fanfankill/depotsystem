@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /**margin盒子 */
 #borderdiv{
   width: 100%;

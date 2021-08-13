@@ -137,8 +137,7 @@ export default {
     };
   },
   mounted: function () {
-   
-    this.geteverytime();
+
     //vuex里面取头像
     if(this.$store.state.myuserimg)
     {
@@ -155,6 +154,8 @@ export default {
     }else{
       this.name=sessionStorage.getItem('adminname')
     }
+
+    this.geteverytime();
    
   },
   //每秒刷新的计时器
@@ -167,8 +168,12 @@ export default {
         var min = d.getMinutes();
 
         var second = d.getSeconds();
+        if(document.getElementById("timeshow"))
+        {
+           document.getElementById("timeshow").innerHTML =hour + " 时 " + min + " 分 " + second + " 秒 ";
+        }
 
-        document.getElementById("timeshow").innerHTML =hour + " 时 " + min + " 分 " + second + " 秒 ";
+       
       }, 1000);
     },
     //退出登录

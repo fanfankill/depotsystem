@@ -113,19 +113,22 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .showbtn{
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
   width:99%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid gainsboro;
+  border-bottom:1px solid gainsboro ;
+ 
   /**换行 */
   flex-wrap: wrap;
 }
 .showbtn button{
- margin: 10px 15px 10px 15px;
+  margin: 10px 10px 10px 10px ;
 }
+
 </style>

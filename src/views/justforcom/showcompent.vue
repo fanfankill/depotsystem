@@ -2,13 +2,15 @@
   <div>
     <div id="topshow">
       <span>fanfan的UI库</span>
+  
+        <h4 class="copyelemet">仿照element ui</h4>
+     
     </div>
     <div id="leftshow">
       <div id="borderdiv"></div>
       <ul class="leftul">
-          <li><h2>组件</h2></li>
-        <li><a href="#/showcompent/btn">Button 按钮</a></li>
-          <li><a href="#/showcompent/input">Input 输入框</a></li>
+        <li><h2>组件</h2></li>
+        <li v-for="(item,index) in myitem"  :key="item.ahref"><a @click="getindex(index)"  :href="item.ahref" class="base_a" :class="{active_a:index==current}" >{{item.title}}</a></li>
 
       </ul>
 
@@ -26,19 +28,54 @@
 
 <script>
 export default {
+  data() {
+    return {
+      current:0,
+      myitem:[
+        {
+          ahref:'#/showcompent/btn',
+          title:'Button 按钮'
+        },
+         {
+          ahref:'#/showcompent/input',
+          title:'Input 输入框'
+        },
+         {
+          ahref:'#/showcompent/message',
+          title:'Mesaage 消息'
+        },
+         {
+          ahref:'#/showcompent/alert',
+          title:'Alert 警告'
+        },
+         {
+          ahref:'#/showcompent/badge',
+          title:'Badge 标记'
+        },
+      ]
+    }
+  },
   methods:{
     show:function(){
       console.log('?');
-    }
+    },
+
+   getindex(index){
+     this.current=index
+
+   }
   }
 }
 </script>
 
 <style>
-/**去除滚动条 */
+/**
+ //去滚动条的
 ::-webkit-scrollbar{
   display:none;
 }
+
+*/
 /**margin盒子 */
 #borderdiv{
   width: 100%;
@@ -47,9 +84,10 @@ export default {
 
 #topshow{
  width: 100%;
- height: 15vh;
+ height: 14vh;
  border-bottom: 1px solid gainsboro;
  display: flex;
+ flex-direction: column;
  justify-content: center;
  align-items: center;
 }
@@ -87,10 +125,14 @@ export default {
   height: 40px;
   line-height: 40px;
 }
-.leftul li a{
+.base_a{
  text-decoration: none;
  color: black;
 }
+.active_a{
+  color: rgb(71, 179, 230);
+}
+
 
 
 
