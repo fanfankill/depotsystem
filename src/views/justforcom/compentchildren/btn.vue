@@ -100,6 +100,16 @@
            
      </div>
 
+
+      <span>文字按钮</span>
+     <div class="showbtn">
+       <fan-btn type="text">fanfan</fan-btn>
+         <fan-btn type="text" disabled>fanfan</fan-btn>
+          
+
+           
+     </div>
+
   </div>
 </template>
 

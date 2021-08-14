@@ -1,5 +1,5 @@
 <template>
-  <div>
+
       <button 
        class="fan-button"
       :type="nativetype" 
@@ -22,7 +22,7 @@
               <slot></slot>    
             </span> 
     </button>
-  </div>
+
 </template>
 
 <script>
@@ -298,5 +298,28 @@ export default {
     padding: 7px 15px;
     font-size: 12px;
     border-radius: 3px;
+}
+/**文字按钮 */
+.fan-button-text {
+    border-color: transparent;
+    color: #409eff;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+}
+.fan-button-text:hover{
+   color:  #66b1ff;
+    background: #fff;
+    border-color: #fff;
+}
+.fan-button-text:active{
+    color: #3a8ee6;
+    background-color: transparent;
+}
+.fan-button-text.is-disabled{
+    color: #c0c4cc;
+    background-image: none;
+    background-color: #fff;
+    border-color: #fff;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
         },
          {
           ahref:'#/showcompent/message',
-          title:'Mesaage 消息'
+          title:'Dialog 对话框'
         },
          {
           ahref:'#/showcompent/alert',
