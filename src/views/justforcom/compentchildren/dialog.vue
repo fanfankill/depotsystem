@@ -1,14 +1,17 @@
 <template>
   <div class="bigh">
-     
+
+      
      <div class="showdialog">
           <fan-btn @click="show" type="text">
     点击我
   </fan-btn>
      </div>
+
   
 
-  <fan-message 
+  <fan-dialog
+  :before-close="logsome" 
   :visible.sync="iskan"
   title="好心提醒"
   width="30%">
@@ -19,7 +22,7 @@
        <div class="middlemargin"></div>
       <fan-btn type="primary" @click="iskan=false">确认</fan-btn>
     </span>
-  </fan-message>
+  </fan-dialog>
 
   </div>
 </template>
@@ -35,6 +38,9 @@ export default {
         show()
         {
             this.iskan=!this.iskan
+        },
+        logsome(){
+          this.messageBox('我是关闭前的回调函数','success')
         }
     }
 }
@@ -51,7 +57,8 @@ export default {
   height: 10px;
 }
 .showdialog{
-  width: 100%;
+  width: 80%;
+  margin: auto;
   height: 80px;
   border: 1px solid gainsboro;
   display: flex;

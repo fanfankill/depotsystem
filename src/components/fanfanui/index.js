@@ -1,17 +1,18 @@
 import fanbtn from './button/index.vue'
 import faninput from './input/index.vue'
-import fanmessage from './message/index.vue'
+import fandiglog from './diglog/index.vue'
 import fanalert from '../fanfanui/alert/index.vue'
 import fanbadge from '../fanfanui/badge/index.vue'
-
+import fanlink from '../fanfanui/link/index.vue'
 
 // 组件列表
 const allcomponents=[
     fanbtn,
     faninput,
-    fanmessage,
+    fandiglog,
     fanalert,
-    fanbadge
+    fanbadge,
+    fanlink
 ]
 
 

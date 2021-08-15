@@ -1,9 +1,10 @@
 <template>
   <transition name="dialog-fade">
-    <div
+ 
+      <div
       class="el-dialog__wrapper"
       v-show="visible"
-      @click.self="handleWrapperClick"
+      
     >
       <div
         ref="dialog"
@@ -28,15 +29,18 @@
         <div class="el-dialog__body"><slot></slot></div>
           <div class="el-dialog__footer"><slot name="footer"></slot></div>
       </div>
-      
+      <!-- 暂时把点击事件移到遮罩上面 -->
+      <div class="v-modal"   @click.self="handleWrapperClick"></div>
     </div>
+    
+ 
 
   </transition>
 </template>
 
 <script >
 export default {
-  name: "FanMessage",
+  name: "FanDialog",
 
   props: {
     title: {
@@ -50,7 +54,11 @@ export default {
       default: true,
     },
 
-   
+    // close-on-press-escape    是否可以通过按下 ESC 关闭 Dialog    
+      closeOnPressEscape: {
+        type: Boolean,
+        default: true
+      },
 
     // close-on-click-modal    是否可以通过点击 modal 关闭 Dialog
     closeOnClickModal: {
@@ -66,6 +74,8 @@ export default {
       type: Boolean,
       default: false,
     },
+     //关闭前的回调，会暂停 Dialog 的关闭
+      beforeClose: Function,
 
     // show-close    是否显示关闭按钮
     showClose: {
@@ -128,7 +138,14 @@ export default {
 
     // 关闭dialog
     handleClose() {
-      this.hide();
+      //如果有回调函数 先执行回调函数
+      if(typeof this.beforeClose=='function')
+      {
+        this.beforeClose(this.hide())
+        
+      }else{
+        this.hide();
+      }
     },
     // 隐藏dialog
     hide() {
@@ -144,6 +161,7 @@ export default {
 
 <style>
 .el-dialog__wrapper {
+
   z-index: 2001;
   position: fixed;
   top: 0;
@@ -196,7 +214,7 @@ export default {
     box-sizing: border-box;
 }
 .v-modal {
-    z-index: 2;
+    z-index: -1;
     position: fixed;
     left: 0;
     top: 0;

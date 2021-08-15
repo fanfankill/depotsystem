@@ -41,7 +41,7 @@ export default {
           title:'Input 输入框'
         },
          {
-          ahref:'#/showcompent/message',
+          ahref:'#/showcompent/dialog',
           title:'Dialog 对话框'
         },
          {
@@ -51,6 +51,10 @@ export default {
          {
           ahref:'#/showcompent/badge',
           title:'Badge 标记'
+        },
+        {
+          ahref:'#/showcompent/link',
+          title:'Link 文字链接'
         },
       ]
     }

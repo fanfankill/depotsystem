@@ -20,11 +20,13 @@ const componentbtn=()=>import ('../views/justforcom/compentchildren/btn')
 //input
 const componentinput=()=>import('../views/justforcom/compentchildren/input')
 //message
-const componentmessage=()=>import('../views/justforcom/compentchildren/message')
+const componentdialog=()=>import('../views/justforcom/compentchildren/dialog')
 //alert
 const componentalert=()=>import('../views/justforcom/compentchildren/alert')
 //badge
 const componentbadge=()=>import('../views/justforcom/compentchildren/badge')
+//link
+const componentlink=()=>import('../views/justforcom/compentchildren/link')
 
 
 //安装插件
@@ -71,8 +73,8 @@ children:[
   },
   
   {
-    path:'/showcompent/message',
-    component:componentmessage,
+    path:'/showcompent/dialog',
+    component:componentdialog,
     meta: {
       keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由
@@ -91,6 +93,15 @@ children:[
   {
     path:'/showcompent/badge',
     component:componentbadge,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
+
+  {
+    path:'/showcompent/link',
+    component:componentlink,
     meta: {
       keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由
