@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zuiwai">
 
 
  <h2>按钮</h2>
@@ -124,6 +124,9 @@ export default {
 </script>
 
 <style scoped>
+.zuiwai{
+    margin-left: 20px;
+}
 .showbtn{
   margin-top: 20px;
   padding-bottom: 30px;

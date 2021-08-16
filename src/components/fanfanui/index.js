@@ -4,6 +4,8 @@ import fandiglog from './diglog/index.vue'
 import fanalert from '../fanfanui/alert/index.vue'
 import fanbadge from '../fanfanui/badge/index.vue'
 import fanlink from '../fanfanui/link/index.vue'
+import fanimgge from '../fanfanui/image/index.vue'
+
 
 // 组件列表
 const allcomponents=[
@@ -12,7 +14,8 @@ const allcomponents=[
     fandiglog,
     fanalert,
     fanbadge,
-    fanlink
+    fanlink,
+    fanimgge
 ]
 
 

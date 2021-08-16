@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zuiwai">
       <h2>输入框</h2>
 
       <div class="showdiv">
@@ -65,6 +65,9 @@ export default {
 </script>
 
 <style scoped>
+.zuiwai{
+    margin-left: 20px;
+}
 /**margin盒子 */
 #borderdiv{
   width: 100%;

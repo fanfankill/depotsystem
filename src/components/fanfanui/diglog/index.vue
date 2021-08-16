@@ -33,8 +33,6 @@
       <div class="v-modal"   @click.self="handleWrapperClick"></div>
     </div>
     
- 
-
   </transition>
 </template>
 

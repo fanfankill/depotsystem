@@ -56,6 +56,10 @@ export default {
           ahref:'#/showcompent/link',
           title:'Link 文字链接'
         },
+         {
+          ahref:'#/showcompent/image',
+          title:'Image 图片'
+        },
       ]
     }
   },
@@ -73,6 +77,10 @@ export default {
 </script>
 
 <style>
+*{
+  padding: 0;
+  margin: 0;
+}
 /**
  //去滚动条的
 ::-webkit-scrollbar{
@@ -88,17 +96,16 @@ export default {
 
 #topshow{
  width: 100%;
- height: 14vh;
+ height: 13.5vh;
  border-bottom: 1px solid gainsboro;
  display: flex;
  flex-direction: column;
- justify-content: center;
+padding-bottom: 10px;
  align-items: center;
-}
-#topshow{
   font-size: 20px;
   color: rgb(115, 164, 228);
 }
+
 
 #leftshow{
   height: 85vh;
@@ -110,9 +117,8 @@ export default {
 }
 #rightshow{
   float: left;
-  width:60%;
+  width:69.9%;
  height: 85vh;
-  margin-left: 20px;
   overflow: auto;
 }
 
@@ -126,8 +132,8 @@ export default {
 }
 .leftul li{
   list-style: none;
-  height: 40px;
-  line-height: 40px;
+  height: 60px;
+  line-height: 60px;
 }
 .base_a{
  text-decoration: none;

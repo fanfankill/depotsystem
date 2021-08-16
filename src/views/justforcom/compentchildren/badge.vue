@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zuiwai">
       <h3>基本样式</h3>
      <div class="showbadge">
           <fan-badge
@@ -123,6 +123,9 @@ export default {
 </script>
 
 <style scoped>
+.zuiwai{
+    margin-left: 20px;
+}
 .showbadge{
     display: flex;
     justify-content: space-around;

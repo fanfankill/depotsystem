@@ -4,10 +4,6 @@
    
   >
     <template>
-        <!-- 前置元素 -->
-      <div class="el-input-group__prepend" v-if="$slots.prepend">
-        <slot name="prepend"></slot>
-      </div>
 
            <input
        class="input_defalut"
@@ -54,7 +50,7 @@ export default {
       blur() {
         this.getInput().blur();
       },
-
+        //双向绑定
         handleInput(e)
         {
           this.$emit('input',e.target.value)

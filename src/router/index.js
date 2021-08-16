@@ -27,7 +27,8 @@ const componentalert=()=>import('../views/justforcom/compentchildren/alert')
 const componentbadge=()=>import('../views/justforcom/compentchildren/badge')
 //link
 const componentlink=()=>import('../views/justforcom/compentchildren/link')
-
+//image
+const componentimage=()=>import('../views/justforcom/compentchildren/image')
 
 //安装插件
 Vue.use(VueRouter)
@@ -102,6 +103,15 @@ children:[
   {
     path:'/showcompent/link',
     component:componentlink,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
+
+  {
+    path:'/showcompent/image',
+    component:componentimage,
     meta: {
       keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由

@@ -70,8 +70,10 @@ export default {
     padding: 0;
     font-size: 14px;
     font-weight: 500;
+    outline: none;
     
 }
+
 .fan-link.is-underline:hover::after{
     content: "";
     position: absolute;
@@ -83,6 +85,9 @@ export default {
 }
 .fan-link:hover{
     color: #66b1ff;
+}
+.fan-link-primary.is-disabled{
+    
 }
 
 .fan-link-primary{
