@@ -45,6 +45,7 @@ Vue.use(ElementUI)
 Vue.use(fanui)
 
 
+
 //图表
 Vue.prototype.$echarts = echarts
 

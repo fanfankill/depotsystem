@@ -110,8 +110,24 @@
 
       </div>
 
-      >
+      
 
+       <!--  <el-select v-model="selectval"  @change="getindex()">
+          <el-option
+          v-for="(item) in options" :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"></el-option>
+        </el-select>
+       
+         <el-select v-model="selectval2" @change="getindex()">
+          <el-option
+          v-for="(item) in options" :key="item.value" 
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"></el-option>
+        </el-select>
+ -->
   </div>
 </template>
 
@@ -119,12 +135,39 @@
 export default {
     data() {
         return {
-         mysrc:'http://139.196.87.221:3000/imgs/1625799551444_u=3572837379,4046716905&fm=26&fmt=auto&gp=0.jpg'
+         mysrc:'http://139.196.87.221:3000/imgs/1625799551444_u=3572837379,4046716905&fm=26&fmt=auto&gp=0.jpg',
+
+         selectval:'',
+         selectval2:'',
+        options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶',
+          
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        },],
         }
     },
     methods: {
         geterror(e){
             console.log(e);
+        },
+
+        getindex(){
+            this.options.forEach((item)=>{
+              if(this.selectval==item.value||this.selectval2==item.value)
+              item.disabled=true
+              else  item.disabled=false
+
+              
+            })
         }
     },
 }

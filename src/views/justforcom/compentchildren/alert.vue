@@ -1,5 +1,6 @@
 <template>
   <div class="zuiwai">
+      <h3 class="mytitle"></h3>
       <h3>light类型</h3>
         <div class="showalert">
               <fan-alert type='success' title="我的内容"></fan-alert>
@@ -86,6 +87,11 @@ export default {
 </script>
 
 <style scoped>
+.mytitle{
+    margin: 55px 0 20px 5%;
+    font-weight: 400;
+    color: #1f2f3d;
+}
 .zuiwai{
     margin-left: 20px;
 }

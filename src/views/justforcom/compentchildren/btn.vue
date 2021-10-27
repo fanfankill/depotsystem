@@ -2,7 +2,7 @@
   <div class="zuiwai">
 
 
- <h2>按钮</h2>
+ <h2 class="mytitle"> </h2>
       
         <span >基本按钮</span>
         <div class="showbtn">
@@ -124,6 +124,11 @@ export default {
 </script>
 
 <style scoped>
+.mytitle{
+    margin: 55px 0 20px 5%;
+    font-weight: 400;
+    color: #1f2f3d;
+}
 .zuiwai{
     margin-left: 20px;
 }

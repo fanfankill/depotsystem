@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import axios from "axios";
 
+import {login} from '../../api/api'
 export default {
   data() {
     return {
@@ -59,6 +59,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$route);
     if (this.getCookie("username") && this.getCookie("password")) {
       this.username = this.getCookie("username");
       this.password = this.getCookie("password");
@@ -70,8 +71,8 @@ export default {
   },
 
   methods: {
-    getmes() {
-      axios.post("/login", {
+    async getmes() {
+    await login({
           username: this.username,
           password: this.password,
         })
@@ -105,7 +106,7 @@ export default {
               //可以取到头像
               // console.log(this.$store.state.myuserimg);
               //给iphone发登录消息
-              axios.get('https://api.day.app/sSA3xJGKscqrsWYyeNgpvW/停车场网站/'+res.data.result[0].nickname+'登录了!')
+            //  axios.get('https://api.day.app/sSA3xJGKscqrsWYyeNgpvW/停车场网站/'+res.data.result[0].nickname+'登录了!')
               
              this.$router.push("/mainshow");
           }

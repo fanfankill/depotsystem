@@ -73,7 +73,7 @@
 
               <el-dropdown>
   <span class="el-dropdown-link">
-   <img id="myimg"  :src="userimg"/>
+   <img id="myimg"  :src="UserImg"/>
   </span>
   
   <el-dropdown-menu slot="dropdown">
@@ -91,7 +91,10 @@
          <keep-alive>
       <router-view v-if="$route.meta.keepAlive"/>
     </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive"/>
+
+      <transition :name="transitionName">
+     <router-view  v-if="!$route.meta.keepAlive"></router-view>
+  </transition>
         </el-main>
       </el-container>
     </el-container>
@@ -112,8 +115,15 @@ export default {
         this.name=newval
       },
       immediate:true
-    }
     },
+    $route(to,from){
+      if(to.meta.index>from.meta.index){
+        this.transitionName = 'slide-left';
+      }else{
+        this.transitionName = 'slide-right';
+      }
+    }
+},
       //计算属性
   computed:{
     UserImg:{
@@ -122,11 +132,11 @@ export default {
       },
       
     },
-    MyName:{
-      get(){
+    MyName(){
+      {
         console.log(this.$store.state.myname);
         return this.$store.state.myname
-      },
+      }
       }
   },
   data() {
@@ -134,6 +144,7 @@ export default {
       name: "",
       nowtime: "",
       userimg: "",
+      transitionName:''
     };
   },
   mounted: function () {
@@ -155,13 +166,14 @@ export default {
       this.name=sessionStorage.getItem('adminname')
     }
 
-    this.geteverytime();
+    this.updatetime()
    
   },
   //每秒刷新的计时器
   methods: {
-    geteverytime() {
-      setInterval(function () {
+
+    //定时器方法 用RAF API实现 更加精准
+    updatetime(){
         var d = new Date();
         var hour = d.getHours();
 
@@ -172,9 +184,7 @@ export default {
         {
            document.getElementById("timeshow").innerHTML =hour + " 时 " + min + " 分 " + second + " 秒 ";
         }
-
-       
-      }, 1000);
+        window.requestAnimationFrame(this.updatetime)
     },
     //退出登录
     loginout()
@@ -199,6 +209,34 @@ export default {
     display: none;
   }
 }
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 500ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+
+
+
 .el-header,
 .el-footer {
   background-color: #545c64;
@@ -211,10 +249,12 @@ export default {
 
 .el-main {
   background-color: rgb(245, 244, 244);
+   z-index: 2;
 }
 .el-aside {
   color: #333;
   height: 100vh;
+  z-index: 2000;
 }
 #childshow {
   display: flex;

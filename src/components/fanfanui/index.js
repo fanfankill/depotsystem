@@ -7,6 +7,7 @@ import fanlink from '../fanfanui/link/index.vue'
 import fanimgge from '../fanfanui/image/index.vue'
 
 
+
 // 组件列表
 const allcomponents=[
     fanbtn,
@@ -15,7 +16,7 @@ const allcomponents=[
     fanalert,
     fanbadge,
     fanlink,
-    fanimgge
+    fanimgge,
 ]
 
 

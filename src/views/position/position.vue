@@ -84,10 +84,9 @@ import addposition from "./positionchild/addposition";
 import editposition from './positionchild/editposition'
 export default {
   mounted: function () {
-      setTimeout(()=>{
-        this.boxloading=false
+  
         this.getallposition();
-      },1000)
+
   },
   components: {
     addposition,
@@ -112,6 +111,7 @@ export default {
     getallposition() {
       this.$axios.get("/getallposition").then((res) => {
         this.tableData = res.data.lists;
+        this.boxloading=false
       });
     },
     //删除车位

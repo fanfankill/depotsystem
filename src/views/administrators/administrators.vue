@@ -121,6 +121,7 @@ export default {
         this.userimg=newval
       }
     },
+    
   data() {
     return {
       //骨架
@@ -139,21 +140,18 @@ export default {
       isedit:false
     };
   },
+
   components:{
     editmessage,
   },
+
   mounted: function () {
      
-      setTimeout(()=>{
-           this.boxloading=false
-      },1000)
       this.getadminmessage()
       this.getalladmin()
     
-         
-
-    
   },
+
   methods: {
     handleAvatarSuccess(res, file) {
       console.log(res,file);
@@ -188,6 +186,8 @@ export default {
         //更新存储
          //从vuex里面取值
         this.userimg=this.$store.state.myuserimg
+
+        this.boxloading=false
         
       })
     },

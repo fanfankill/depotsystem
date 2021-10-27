@@ -108,6 +108,11 @@ export default {
       visible(val){
           this.closed=val
           console.log(val);
+          if(val==true){
+            document.body.style.overflow='hidden'
+          }else{
+            document.body.style.overflow='auto'
+          }
   
       } 
   },

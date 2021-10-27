@@ -141,10 +141,9 @@
 import addpeople from "./carpeoplechild/addpeople";
 export default {
   mounted: function () {
-    setTimeout(()=>{
-      this.boxloading=false
+     
        this.getpersonmes();
-    },1000)
+   
    
   },
   watch: {
@@ -203,6 +202,7 @@ export default {
       this.$axios.get("/getpersonmes").then((res) => {
         console.log(res);
         this.tableData = res.data.result;
+        this.boxloading=false
       });
     },
 

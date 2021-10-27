@@ -1,10 +1,8 @@
 <template>
   <div 
   class="fan_input"
-   
   >
     <template>
-
            <input
        class="input_defalut"
        ref="input"
@@ -32,6 +30,7 @@
 <script>
 export default {
   name:'FanInput',
+ 
 
      props: {
       // value / v-model    绑定值    string / number    —
@@ -40,7 +39,7 @@ export default {
       focused:Boolean,
       readonly:Boolean
      },
-
+    
       methods: {
          // 聚焦
       focus() {
@@ -58,6 +57,8 @@ export default {
          
          //聚焦事件
          handleFocus(e){
+           
+           console.log(e);
            this.$emit('focus', e);
          },
           //失焦事件

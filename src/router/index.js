@@ -43,7 +43,10 @@ const routes = [
 //登录面
 {
   path:'/login',
-  component:login
+  component:login,
+  meta:{
+    index:1
+  }
 },
 
 //ui组件页面
@@ -55,6 +58,10 @@ const routes = [
     needtoken:false      //权限路由
 },
 children:[
+  { 
+    path: '/showcompent',
+    redirect: '/showcompent/btn' 
+ },
   {
     path:'/showcompent/btn',
     component:componentbtn,
@@ -138,7 +145,8 @@ children:[
       component:administrators,
       meta: {
         keepAlive: false,   //是否缓存（缓存后不刷新）
-        needtoken:true      //权限路由
+        needtoken:true,
+        index:2      //权限路由
     }
     },
     //数据展示页面
@@ -147,7 +155,8 @@ children:[
   component:mainshow,
   meta: {
     keepAlive: false,   //是否缓存（缓存后不刷新）
-    needtoken:true
+    needtoken:true,
+    index:3
 }
 },
     //车位管理
@@ -156,8 +165,10 @@ children:[
       component:parking,
       meta: {
         keepAlive: false,   //是否缓存（缓存后不刷新）
-        needtoken:true
-    }
+        needtoken:true,
+        index:4
+    },
+    
     },
       //区域管理
       {
@@ -165,7 +176,8 @@ children:[
         component:position,
         meta: {
           keepAlive: false,   //是否缓存（缓存后不刷新）
-          needtoken:true
+          needtoken:true,
+          index:5
       }
       },
     //进出车辆登记
@@ -174,7 +186,8 @@ children:[
       component:carjoin,
       meta: {
         keepAlive: false,   //是否缓存（缓存后不刷新）
-        needtoken:true
+        needtoken:true,
+        index:6
     }
     },
        //进出车辆管理页面
@@ -183,7 +196,8 @@ children:[
         component:  carjoincontrol,
         meta: {
           keepAlive: false,   //是否缓存（缓存后不刷新）
-          needtoken:true
+          needtoken:true,
+          index:7
       }
       },
       //车主信息登记和固定车位续费
@@ -192,7 +206,8 @@ children:[
         component:  carpeople,
         meta: {
           keepAlive: false,   //是否缓存（缓存后不刷新）
-          needtoken:true
+          needtoken:true,
+          index:8
       }
       },
       //群聊
@@ -202,7 +217,8 @@ children:[
         component:  allchat,
         meta: {
           keepAlive: true,   //是否缓存（缓存后不刷新）
-          needtoken:false
+          needtoken:false,
+          index:9
       }
         
       },

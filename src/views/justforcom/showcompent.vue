@@ -7,7 +7,7 @@
      
     </div>
     <div id="leftshow">
-      <div id="borderdiv"></div>
+    
       <ul class="leftul">
         <li><h2>组件</h2></li>
         <li v-for="(item,index) in myitem"  :key="item.ahref"><a @click="getindex(index)"  :href="item.ahref" class="base_a" :class="{active_a:index==current}" >{{item.title}}</a></li>
@@ -18,7 +18,7 @@
 
     </div>
       <div id="rightshow">
-        <div id="borderdiv"></div>
+       
        
         <router-view ></router-view>
 
@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  name:'componentsfather',
   data() {
     return {
       current:0,
@@ -60,6 +61,10 @@ export default {
           ahref:'#/showcompent/image',
           title:'Image 图片'
         },
+        {
+          ahref:'#/showcompent/progress',
+          title:'Progress 进度条'
+        },
       ]
     }
   },
@@ -71,8 +76,19 @@ export default {
    getindex(index){
      this.current=index
 
+     //存储current
+      sessionStorage.setItem('mycurrent',this.current)
+   },
+  },
+   mounted() {
+
+     if(sessionStorage.getItem('mycurrent')){
+       this.current=sessionStorage.getItem('mycurrent')
+     }
+   },
+   beforeDestroy(){
+     sessionStorage.clear()
    }
-  }
 }
 </script>
 
@@ -149,22 +165,24 @@ padding-bottom: 10px;
 /**媒体查询响应式适配 */
 @media screen and (min-width:0px) and (max-width:760px){
   #leftshow{
-  height: 85vh;
-  float: left;
-  width: 100vw;
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 85vh;
+   width: 100vw;
   overflow: auto;
-  border-right:1px solid gainsboro ;
   border-bottom:1px solid gainsboro ;
   color: goldenrod;
 
 }
 #rightshow{
+  margin-top:200px ;
   float: left;
-  width:90%;
+  width:100%;
   margin: auto;
-  height: 85vh;
   overflow:initial;
-  margin-left: 20px;
+
   
 }
 }

@@ -1,14 +1,14 @@
 <template>
   <div class="bigh">
 
-      
+      <h3 class="mytitle"></h3>
      <div class="showdialog">
           <fan-btn @click="show" type="text">
     点击我
   </fan-btn>
      </div>
+ 
 
-  
 
   <fan-dialog
   :before-close="logsome" 
@@ -28,25 +28,58 @@
 </template>
 
 <script>
+import {mymixin} from './mixin'
 export default {
     data() {
         return {
-             iskan:false
+             iskan:false,
+             testtex:'mytest',
+             message:'xixi',
+            
+
+           
         }
+    },
+    
+    mixins:[mymixin],
+    once:{
+      logsome:function(){
+        console.log('sdsd');
+      }
     },
     methods:{
         show()
         {
             this.iskan=!this.iskan
+          
         },
         logsome(){
           this.messageBox('我是关闭前的回调函数','success')
-        }
-    }
+        },
+      
+    },
+    
+    filters:{
+        test:function (value) {
+          console.log(value);
+          return value+'why'
+      }
+    },
+    mounted(){
+      this.$forceUpdate()
+    },
+ 
+
+  
 }
 </script>
 
 <style scoped>
+.mytitle{
+    margin: 55px 0 20px 5%;
+    font-weight: 400;
+    color: #1f2f3d;
+}
 .bigh{
   height: 2000px;
   width: 100%;
@@ -65,4 +98,5 @@ export default {
   justify-content: center;
   align-content: center;
 }
+
 </style>

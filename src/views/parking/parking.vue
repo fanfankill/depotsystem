@@ -148,18 +148,23 @@
         </el-table-column>
         <el-table-column prop="CarCost" label="小时计费" >
         </el-table-column>
-        <el-table-column prop="HaveCar" label="是否空闲" width="80" align="center">
-          <template slot-scope="scope">
-            <el-tag type="danger" v-if="scope.row.HaveCar == 0">否</el-tag>
-            <el-tag type="success" v-else>是</el-tag>
-          </template>
-        </el-table-column>
+
         <el-table-column prop="FixCar" label="是否固定车位"  align="center">
           <template slot-scope="scope">
             <el-tag type="danger" v-if="scope.row.FixCar == 1">否</el-tag>
             <el-tag type="success" v-else>是</el-tag>
           </template>
         </el-table-column>
+
+
+        <el-table-column prop="HaveCar" label="是否空闲" width="80" align="center">
+          <template slot-scope="scope">
+            <el-tag type="danger" v-if="scope.row.HaveCar == 0">否</el-tag>
+            <el-tag type="success" v-else>是</el-tag>
+          </template>
+        </el-table-column>
+       
+        
         <el-table-column prop="CarNumber" label="车牌编号">
           <template slot-scope="scope">
                <span v-if="scope.row.CarNumber ">{{scope.row.CarNumber}}</span>
@@ -222,10 +227,8 @@ import addpark from './parkingchild/addpark'
 export default {
   created: function () {
     
-   setTimeout(()=>{
-      this.boxloading=false,
     this.getallparkings();    
-   },1000)
+ 
  
   },
   components:{
@@ -289,10 +292,12 @@ export default {
           this.tableData = res.data.result2;
           this.parktotal=res.data.count
            this.loading=false
+           this.boxloading=false
         })
         .catch((err) => {
           console.log(err);
           this.loading=false
+           this.boxloading=false
         });
     },
     //根据车位编号查询

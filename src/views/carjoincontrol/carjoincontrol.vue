@@ -133,10 +133,9 @@ export default {
     },
     created:function()
     {
-       setTimeout(()=>{
-           this.boxloading=false
+       
             this.getallcarjoin()
-       },1000)
+  
     },
     data() {
         return {
@@ -178,9 +177,11 @@ export default {
                      v.ComeTime=v.ComeTime.substring(0,10)+ ' '+v.ComeTime.substring(11,16)
                       v.LeaveTime=v.LeaveTime.substring(0,10)+ ' '+v.LeaveTime.substring(11,16)
                  })
-                
-                
+
+                 this.boxloading=false
+            
             }).catch(err=>{
+                this.boxloading=false
                 console.log(err);
             })
         },

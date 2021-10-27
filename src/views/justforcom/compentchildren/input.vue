@@ -1,7 +1,6 @@
 <template>
   <div class="zuiwai">
-      <h2>输入框</h2>
-
+      <h3 class="mytitle"> </h3>
       <div class="showdiv">
         <span  class="showtitle">简单的双向绑定</span>
           <fan-input v-model="myvalue" placeholder="请输入内容"></fan-input>
@@ -36,7 +35,8 @@
 </template>
 
 <script>
-export default {
+export default {    
+    name:'myself',
     data() {
         return {
             myvalue:'fanfan',
@@ -65,6 +65,11 @@ export default {
 </script>
 
 <style scoped>
+.mytitle{
+    margin: 55px 0 20px 5%;
+    font-weight: 400;
+    color: #1f2f3d;
+}
 .zuiwai{
     margin-left: 20px;
 }
