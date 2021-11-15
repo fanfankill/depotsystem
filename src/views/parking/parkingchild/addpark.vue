@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="新增车位" :visible.sync="isaddpark">
+    <fan-dialog title="新增车位" :visible.sync="isaddpark">
       <el-select v-model="toaddposition" placeholder="请选择停车区域">
         <el-option
           v-for="item in positions"
@@ -18,7 +18,7 @@
         <el-button @click="isaddpark = false">取 消</el-button>
         <el-button type="primary" @click="toaddpark">新 增</el-button>
       </span>
-    </el-dialog>
+    </fan-dialog>
   </div>
 </template>
 

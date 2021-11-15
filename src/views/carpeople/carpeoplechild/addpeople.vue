@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="新增车主信息" :visible.sync="isaddmessage" width="25%">
+    <fan-dialog title="新增车主信息" :visible.sync="isaddmessage" width="80%">
       <table id="addpeopletable">
         <tr>
           <td style="width: 100px"><el-tag>车主姓名</el-tag></td>
@@ -14,9 +14,9 @@
         <tr>
           <td><el-tag>车牌号码</el-tag></td>
           <td>
-            <el-input style="width:80px;float:left" v-model="firtsCarNumber" placeholder="地区号"></el-input>
+            <el-input style="width:35%;float:left" v-model="firtsCarNumber" placeholder="地区号"></el-input>
                 <span>-</span>
-                 <el-input style="width:140px" v-model="secondeCarNumber" placeholder="车牌号码"></el-input>
+                 <el-input style="width:60%" v-model="secondeCarNumber" placeholder="车牌号码"></el-input>
           </td>
         </tr>
         <tr>
@@ -91,7 +91,7 @@
         <el-button @click="isaddmessage = false">取 消</el-button>
         <el-button type="primary" @click="addpeoplemessage">确 定</el-button>
       </span>
-    </el-dialog>
+    </fan-dialog>
   </div>
 </template>
 

@@ -178,14 +178,14 @@ export default {
  
 }
 .el-dialog {
-     z-index: 3;
+  z-index: 3;
   position: relative;
   margin: 0 auto 50px;
   background: #fff;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
   box-sizing: border-box;
-  width: 50%;
+ max-width: 400px;
 }
 
 .el-dialog__header{

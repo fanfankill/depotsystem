@@ -60,16 +60,15 @@
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
           <div id="childshow">
+
             <div class="timeshow_div">
               <i class="iconfont icon-time"></i>
-              <span id="timeshow"></span>
+              <span id="timeshow">{{mytime}}</span>
             </div>
             
 
             <div class="userimg">
               <span class="username">{{ name }}</span>
-
-
 
               <el-dropdown>
   <span class="el-dropdown-link">
@@ -80,11 +79,71 @@
     <el-dropdown-item @click.native="gomymes">个人信息</el-dropdown-item>
     <el-dropdown-item  @click.native="loginout">退出</el-dropdown-item>
   </el-dropdown-menu>
-</el-dropdown>
-              
+</el-dropdown>   
             </div>
+
+            <div class="mydorpmenu">
+              <i :class="{'el-icon-s-fold':isdown,'el-icon-s-unfold':!isdown}"  @click="ToStrenth"></i>
+            </div>
+
           </div>
         </el-header>
+
+        <div ref="menu" class="mymenu">
+            <el-menu
+          :default-active="this.$route.path"
+          router
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+        >
+          <el-menu-item index="/mainshow">
+            <i class="iconfont icon-ico_shuju"></i>
+            <span slot="title">主界面</span>
+          </el-menu-item>
+
+          <el-menu-item index="/parking">
+            <i class="iconfont icon-chewei"></i>
+            <span slot="title">车位管理</span>
+          </el-menu-item>
+
+          <el-menu-item index="/position">
+            <i class="iconfont icon-menu_cwcl"></i>
+            <span slot="title">区域管理</span>
+          </el-menu-item>
+
+          <el-menu-item index="/carjoin">
+            <i class="iconfont icon-huaban39"></i>
+            <span slot="title">车辆登记</span>
+          </el-menu-item>
+
+          <el-menu-item index="/carpeople">
+            <i class="iconfont icon-menu_cwcl"></i>
+            <span slot="title">车主信息</span>
+          </el-menu-item>
+
+          <el-menu-item index="/carjoincontrol">
+            <i class="iconfont icon-menu_cwcl"></i>
+            <span slot="title">临时车管理</span>
+          </el-menu-item>
+
+          <el-menu-item index="/administrators">
+            <i class="iconfont icon-guanliyuan"></i>
+            <span slot="title">管理员界面</span>
+          </el-menu-item>
+
+            <el-menu-item index="/allchat">
+            <i class="iconfont icon-guanliyuan"></i>
+            <span slot="title">一起聊天</span>
+          </el-menu-item>
+
+             <el-menu-item index="/showcompent">
+            <i class="el-icon-files "></i>
+            <span slot="title">组件 </span>
+          </el-menu-item>
+          
+        </el-menu>
+        </div>
 
         <el-main>
    
@@ -144,8 +203,10 @@ export default {
       name: "",
       nowtime: "",
       userimg: "",
-      transitionName:''
-    };
+      transitionName:'',
+      mytime:'',
+      isdown:false,
+      };
   },
   mounted: function () {
 
@@ -182,7 +243,7 @@ export default {
         var second = d.getSeconds();
         if(document.getElementById("timeshow"))
         {
-           document.getElementById("timeshow").innerHTML =hour + " 时 " + min + " 分 " + second + " 秒 ";
+           this.mytime=hour + " 时 " + min + " 分 " + second + " 秒 ";
         }
         window.requestAnimationFrame(this.updatetime)
     },
@@ -198,16 +259,54 @@ export default {
     gomymes()
     {
       this.$router.push('/administrators')
+    },
+    //汉堡按钮展开
+    ToStrenth(){
+      if(!this.isdown){
+        this.$refs.menu.style.height='505px'
+        this.isdown=true
+      }
+      else{
+         
+        this.$refs.menu.style.height=0
+        this.isdown=false
+      }
+        
     }
   },
 };
 </script >
 
 <style scope>
-@media screen and (min-width:0px) and (max-width:600px){
+@media screen and (min-width:0px) and (max-width:720px){
+  html{
+    font-size: 13px;
+  }
   .el-aside {
     display: none;
+
   }
+  .el-container{
+    width: 100vw; 
+  }
+   .mydorpmenu{
+    display: block;
+  }
+}
+
+@media screen and (min-width:720px){
+  .el-aside {
+    display: block;
+  }
+  html{
+    font-size: 15px;
+  }
+  .mydorpmenu{
+    display: none;
+  }
+ .mymenu{
+   display: none;
+ }
 }
 
 .slide-right-enter-active,
@@ -246,10 +345,25 @@ export default {
   color: rgb(159, 222, 238);
   overflow: hidden;
 }
+.el-header{
+  position: relative;
+  z-index: 2501;
+}
+.mymenu{
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  height: 0;
+  z-index: 2500;
+  left: .5px;
+  top: 60px;
+  transition: all .5s;
+}
 
 .el-main {
   background-color: rgb(245, 244, 244);
    z-index: 2;
+   width: 100%;
 }
 .el-aside {
   color: #333;
@@ -260,15 +374,6 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-between;
-}
-.timeshow_div {
-  width: 180px;
-  text-align: center;
-  display: inline;
-  font-size: 18px;
-  padding-left: 10px;
-  color: rgb(255, 255, 254);
-  float: left;
 }
 
 @keyframes goodspan {
@@ -289,22 +394,30 @@ export default {
     color: rgb(226, 192, 79);
   }
 }
+
+.timeshow_div {
+  flex: 2;
+  text-align: left;
+  display: inline;
+  font-size: 1rem;
+  padding-left: 10px;
+  color: rgb(255, 255, 254);
+  float: left;
+  justify-content: space-between;
+}
+
+
 .username {
-  font-size: 15px;
-  position: absolute;
-  top: 0px;
-  right: 30px;
-  margin-right: 20px;
+  font-size: 1rem;
+  margin-right: 10px;
   animation: goodspan 5s infinite;
-  letter-spacing: 2px;
+  letter-spacing: 2px;  
 }
 .userimg {
-  position: relative;
-  position: absolute;
-  right: 50px;
-  top: 0px;
+  display: flex;
   height: 60px;
-  width: 180px;
+  flex: 2;
+  justify-content: flex-end;
   overflow: hidden;
 }
 .userimg img {
@@ -312,5 +425,9 @@ export default {
   border-radius: 100%;
   width: 40px;
   height: 40px;
+}
+.mydorpmenu{
+  font-size: 1.5rem;
+  flex: 1;
 }
 </style>

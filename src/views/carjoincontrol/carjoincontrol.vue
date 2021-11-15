@@ -27,10 +27,10 @@
 
    <template>
           <!-- 结账弹窗 -->
-      <el-dialog
+      <fan-dialog
   title="车辆驶出"
   :visible.sync="carjoinend"
-  width="30%"   
+  width="80%"   
 >
   <table id="carjointab">
       <tr><td><el-tag>价格</el-tag></td>
@@ -57,9 +57,10 @@
     <el-button type="primary" v-if="!DoneValue" @click="removecarjoin">驶出</el-button>
     <el-button type="primary" v-else @click="carjoinend=false">确 定</el-button>
   </span>
-</el-dialog>
-
-  <el-select v-model="DoneValue" placeholder="请选择" style="margin-bottom:10px">
+</fan-dialog>
+<div class="myslect">
+    
+  <el-select v-model="DoneValue" placeholder="请选择" style="margin-bottom:10px;"  class="myoptions">
     <el-option
       v-for="item in donelist"
       :key="item.value"
@@ -73,6 +74,8 @@
          <span style="float:left;display:inline-block;height: 40px;line-height: 40px;">-</span>
      <el-input style="width:130px;float:left" placeholder="车牌号" v-model="tosearchcar2" size="middle"></el-input>
      <el-button  style="float:right" type="primary" @click="searchcar">搜索</el-button>
+</div>
+
 </div>
  
 
@@ -252,6 +255,24 @@ export default {
 </script>
 
 <style>
+@media screen and (min-width: 0px) and (max-width: 720px){
+    .myselect{
+       width: 100%;
+       display: flex; 
+       flex-direction: column;
+       justify-content: space-around;
+       align-items: center;
+    }
+    .myoptions{
+        flex: 1;
+    }
+    .carsearch{
+    margin: auto;
+    flex: 1;
+    margin-bottom: 10px;
+    width: 100%;
+}
+}
 #carjointab tr{
     height: 60px;
 }
@@ -260,7 +281,6 @@ export default {
 }
 .carsearch{
     float: right;
-    width: 300px;
 }
 
 </style>

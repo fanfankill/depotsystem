@@ -1,19 +1,19 @@
 <template>
   <div>
-      <el-dialog
+      <fan-dialog
   title="基本信息修改"
   :visible.sync="istoedit"
-  width="30%"
+  width="80%"
   >
     <table id="admineidttable">
         <tr>
             <td style="width:80px"><el-tag>姓名</el-tag></td>
-            <td style="width:320px"><el-input v-model="basemessgae.nickname"></el-input></td>
+            <td style="width:80%"><el-input v-model="basemessgae.nickname"></el-input></td>
         </tr>
 
          <tr>
             <td><el-tag>性别</el-tag></td>
-            <td >  <el-select style="width:320px" v-model="basemessgae.sex" placeholder="请选择">
+            <td >  <el-select style="width:100%" v-model="basemessgae.sex" placeholder="请选择">
     <el-option
       v-for="item in sexoption"
       :key="item.id"
@@ -37,7 +37,7 @@
     <el-button @click="istoedit = false">取 消</el-button>
     <el-button type="primary" @click="submitmes">提 交</el-button>
   </span>
-</el-dialog>
+</fan-dialog>
   </div>
 </template>
 

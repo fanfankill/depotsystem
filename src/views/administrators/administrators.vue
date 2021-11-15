@@ -8,7 +8,7 @@
         <el-skeleton  :loading="boxloading" animated >
       <template slot="template">
          
-
+        <div class="twoshow">
          <div class="usershow" style="op" >
       <div class="imgshow">
              <el-skeleton-item
@@ -32,11 +32,12 @@
 
            
 
-         
+         </div>
          
       </template>
 
  <template>
+   <div class="twoshow">
       <div class="usershow">
       <div class="imgshow">
         <img v-if="userimg" id="myimgshow" :src="userimg" />
@@ -44,19 +45,19 @@
       </div>
       <el-divider></el-divider>
       <div class="basemesshow">
-          <div>
+          <div class="mymesshow">
             <span class="basemes">姓名：</span> <span class="privateshow">{{myprivate.nickname}}</span>
           </div>
-        <div>
+        <div class="mymesshow">
             <span class="basemes">性别：</span> <span class="privateshow">{{myprivate.sex}}</span>
         </div>
-         <div>
+         <div class="mymesshow">
             <span class="basemes">住址：</span><span class="privateshow">{{myprivate.address}}</span> 
          </div>
-        <div>
+        <div class="mymesshow">
              <span class="basemes">加入时间：</span> <span class="privateshow">{{myprivate.jointime}}</span>
         </div>
-           <div>
+           <div class="mymesshow">
              <span class="basemes">个性签名：</span> <span class="privateshow">{{myprivate.privatemes}}</span>
            </div> 
       </div>
@@ -76,7 +77,7 @@
        
       </div>
     </div>
-
+    <div class="middiv"></div>
     <div class="otherperson">
      <div class="adminmesdiv" v-for="item in othermes" :key="item.AdminId">
         <div class="otherimg">
@@ -105,6 +106,7 @@
       
      </div>
     
+    </div>
     </div>
  </template>
         </el-skeleton>
@@ -220,9 +222,28 @@ export default {
 </script>
 
 <style>
+@media screen and (min-width:0px) and (max-width:720px){
+  .twoshow{
+    display: flex;
+    flex-direction: column;
+  }
+  .middiv{
+    width: 100%;
+    height: 40px;
+    flex: 2;
+  }
+}
+.twoshow{
+  display: flex;
+  flex-wrap: wrap;
+}
+.middiv{
+  flex: 1;
+}
 .usershow {
-  height: 600px;
-  width: 400px;
+  flex: 2;
+  min-height: 620px;
+  width: 100%;
   float: left;
   background-color: rgba(255, 255, 253, 0.438);
   box-shadow: 10px 10px 10px rgb(223, 223, 223);
@@ -233,7 +254,6 @@ export default {
   position: relative;
 }
 #myimgshow{
- 
   z-index: 222;
   width: 150px;
   height: 150px;
@@ -245,28 +265,29 @@ export default {
 
 }
 .basemesshow{
-  
   display: flex;
   flex-direction: column;
-
 }
 .basemesshow >div{
   margin:5px 10px;
   position: relative;
 }
+.mymesshow{
+  display: flex;
+  height: 37.2px;
+
+}
 .basemes{
-  position: absolute;
-  top: 0;
+  flex: 1;
   text-align: right;
   display: inline-block;
   width: 80px;
   color: rgb(121, 118, 118);
 }
 .privateshow{
-    float: right;
-    width: 300px;
-    height: 40px;
-     display: -webkit-box;
+  flex: 4;
+  width: 300px;
+  display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -281,9 +302,10 @@ export default {
 
 /**其他管理员展示 */
 .otherperson{
-  height: 600px;
-  width: 850px;
-  background-color: rgb(219, 219, 219);
+  flex: 4;
+  height: 620px;
+  width: 100%;
+  background-color: rgb(214, 214, 214);
    box-shadow: 10px 10px 10px rgb(223, 223, 223);
   float: right;
   display: flex;

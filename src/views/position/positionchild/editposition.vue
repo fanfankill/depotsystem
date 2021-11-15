@@ -1,9 +1,9 @@
 <template>
   <div>
-      <el-dialog
+      <fan-dialog
   title="停车区域基本信息修改"
   :visible.sync="iseditposition"
-  width="30%"
+  width="80%"
   >
    <table id="addpositontable">
          <tr>
@@ -39,7 +39,7 @@
     <el-button @click="iseditposition = false">取 消</el-button>
     <el-button type="primary" @click="tosubmin">修 改</el-button>
   </span>
-</el-dialog>
+</fan-dialog>
   </div>
 </template>
 

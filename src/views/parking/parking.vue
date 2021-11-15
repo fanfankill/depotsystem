@@ -42,7 +42,7 @@
     <addposition :changebox='addpositonbox'  @changebox="positionchange"></addposition>
 
     <!-- 修改车位信息弹窗 -->
-    <el-dialog title="修改车位信息" :visible.sync="editpark">
+    <fan-dialog title="修改车位信息" :visible.sync="editpark" width="80%">
       <table id="edittab">
         <tr>
           <td><el-tag>车位编号</el-tag></td>
@@ -126,7 +126,7 @@
     <el-button @click="editpark = false">取 消</el-button>
     <el-button type="primary" @click="editparking">修 改</el-button>
   </span>
-    </el-dialog>
+    </fan-dialog>
 
     <div class="topbtn">
       <div>
@@ -186,7 +186,7 @@
             <span v-else>{{scope.row.DueDate.substring(0, 10)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="150">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" @click="toeditparking(scope.row)"
               >编辑</el-button
@@ -405,6 +405,13 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width:720px) {
+  
+}
+
+@media screen and (min-width:720px) {
+
+}
 .topbtn {
   width: 100%;
   margin-bottom: 20px;

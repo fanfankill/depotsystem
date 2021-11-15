@@ -2,7 +2,7 @@
   <div>
      
 
-<el-dialog
+<fan-dialog
   title="新增停车区域"
   :visible.sync="addpositonbox"
   width="40%"
@@ -40,7 +40,7 @@
     <el-button @click="addpositonbox = false">取 消</el-button>
     <el-button type="primary" @click="addposition">确 定</el-button>
   </span>
-</el-dialog>
+</fan-dialog>
   </div>
 </template>
 

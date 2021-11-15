@@ -193,7 +193,8 @@ watch:{
   text-align: center;
   line-height: 40px;
   height: 600px;
-  width: 30%;
+  width: 100%;
+  max-width: 400px;
 
   background-color: rgb(255, 255, 255);
 }

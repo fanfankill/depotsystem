@@ -39,7 +39,7 @@
 
     <!-- 给固定车位续费弹窗 -->
 
-    <el-dialog title="固定车位续费" :visible.sync="isaddcartime" width="30%">
+    <fan-dialog title="固定车位续费" :visible.sync="isaddcartime" width="80%">
       <table id="addtimebox">
         <tr>
           <td style="width: 100px"><el-tag>车主姓名</el-tag></td>
@@ -92,7 +92,7 @@
         <el-button @click="isaddcartime = false">取 消</el-button>
         <el-button type="primary" @click="addcartime">确 定</el-button>
       </span>
-    </el-dialog>
+    </fan-dialog>
 
     <!-- 表格展示数据 -->
     <el-table :data="tableData" 

@@ -140,7 +140,7 @@ export default {
     setCookie(name, value, day) {
       let data = new Date();
       data.setDate(data.getDate() + day);
-      document.cookie = name + "=" + value + ";expires=" + data;
+      document.cookie = name + "=" + value + ";max-age=" + data;
     },
     //获取cookie
     getCookie(name) {
@@ -183,7 +183,7 @@ export default {
   margin-top: 60px;
 }
 .login_title {
-  font-size: 20px;
+  font-size: 1rem;
   color: rgb(145, 177, 206);
   text-align: center;
   height: 50px;

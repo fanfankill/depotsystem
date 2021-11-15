@@ -53,6 +53,7 @@
     <!-- 数据部分 -->
     <template>
        <div class="topdiv">
+
       <div class="leftdiv">
         <div class="topshowdiv">
           <el-divider>总车位数</el-divider>
@@ -69,18 +70,21 @@
           <div class="topspanshow">{{totalmes.totalfixcar}}</div>
         </div>
       </div>
+      <div class="middiv"></div>
       <div class="rightdiv">
-        <div id="circle" style="height: 100%; width: 100%;"></div>
+        <div ref="mycircle" id="circle" style="height: 200px; width: 100%;"></div>
       </div>
+
     </div>
 
     <div class="bottomdiv">
       <div class="btn_leftdiv">
         <div id="xian" style="height:350px; width: 100%"></div>
       </div>
-
+      <div class="middiv"></div>
       <div class="btn_rightdiv">
         <el-divider>当地温度分析</el-divider>
+
            <div class="weathershow">
              <span>{{month_day}}</span>
              <span class="weather_city">长沙</span>
@@ -99,6 +103,7 @@
               <span class="weather_temp" style="font-size:25px;font-weight:600">{{weather.temp}} <span class="iconfont icon-celsius-fill"></span> </span>
               <span class="weather_wse">{{weather.text}}&nbsp;&nbsp;{{weather.windDir}}</span>
            </div>
+
       </div>
     </div>
     </template>
@@ -127,7 +132,10 @@ export default {
   },
   mounted: function () {
   
-
+    //给echarts响应式布局
+    window.addEventListener('resize',function(){
+        
+    })
   //如果要骨架的话 要把数据请求放到DOM树渲染出来后 所以要在这个后面
     setTimeout(()=>{
       this.loading=false
@@ -276,34 +284,55 @@ export default {
 </script>
 
 <style> 
-.topdiv {
+@media screen and (max-width:720px){
+  .bottomdiv{
+    flex-direction: column;
+  }
+  .topdiv{
+    flex-direction: column;
+  }
+  .rightdiv{
+    flex: 6;
+  }
+
+}
+
+@media screen and (min-width:720px){
   
+}
+.topdiv {
+  font-size: 1rem;
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 .leftdiv {
   flex: 5;
   display: flex;
-  border-right: 30px solid rgb(244, 245, 245);
+  border-bottom: 10px;
+  justify-content: space-around;
 }
-
+.middiv{
+  flex: 1;
+  min-height: 40px;
+}
 .rightdiv {
+   min-height: 200px;
   flex: 3;
   background-color: white;
+  
 }
 
 .topspanshow {
   width: 100%;
   text-align: center;
   line-height: 100px;
-  font-size: 25px;
   margin: auto;
 }
 .topshowdiv {
-  width: 160px;
-  background-color: white;
-  height: 230px;
   flex: 1;
+  background-color: white;
+  height: 200px;
   border-right: 20px solid rgb(245, 244, 244);
   
 }
@@ -321,7 +350,7 @@ export default {
   height: 380px;
   background-color: rgb(255, 255, 255);
   display: flex;
-  border-right: 30px solid rgb(245, 244, 244);
+  margin-bottom: 10px;
 }
 .btn_rightdiv {
   flex: 3;

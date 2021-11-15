@@ -52,13 +52,14 @@ body{
   overflow-y: auto;
    overflow-x: hidden;
 }
+
 }
 
 @media screen and (min-width:760px) {
 body{
   overflow: hidden;
-}
+  
 }
 
-
+}
 </style>
