@@ -15,7 +15,7 @@ service.interceptors.request.use(config => {
 
     console.log(config)
     //这里可以设置那个请求加载时的图片
-     loadingInstance= Loading.service({ fullscreen: true,text:'内容加载中' });
+     loadingInstance= Loading.service({ fullscreen: true,text:'极速响应中...' });
     //要把config放行     
     return config;
 }, err => {

@@ -13,6 +13,7 @@ const carjoincontrol=()=>import('../views/carjoincontrol/carjoincontrol')
 const carpeople=()=>import('../views/carpeople/carpeople')
 const position=()=>import('../views/position/position')
 const allchat=()=>import('../views/allchat/allchat')
+const mychat=()=>import('../views/allchat/mychat')
 //ui组件展示页面
 const mycomponents =()=>import('../views/justforcom/showcompent')
 //btn
@@ -29,6 +30,8 @@ const componentbadge=()=>import('../views/justforcom/compentchildren/badge')
 const componentlink=()=>import('../views/justforcom/compentchildren/link')
 //image
 const componentimage=()=>import('../views/justforcom/compentchildren/image')
+//popver
+const componentpopover=()=>import('../views/justforcom/compentchildren/popover')
 
 //安装插件
 Vue.use(VueRouter)
@@ -119,6 +122,15 @@ children:[
   {
     path:'/showcompent/image',
     component:componentimage,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
+
+  {
+    path:'/showcompent/popover',
+    component:componentpopover,
     meta: {
       keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由
@@ -219,6 +231,18 @@ children:[
           keepAlive: true,   //是否缓存（缓存后不刷新）
           needtoken:false,
           index:9
+      }
+        
+      },
+       //群聊
+       {
+        path:'/mychat',
+        name:'mychat',
+        component:  mychat,
+        meta: {
+          keepAlive: true,   //是否缓存（缓存后不刷新）
+          needtoken:false,
+          index:10
       }
         
       },

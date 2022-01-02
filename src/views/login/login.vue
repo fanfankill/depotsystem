@@ -94,13 +94,16 @@ export default {
               type: "success",
             });
             //sessionStorage存储
-            sessionStorage.setItem('adminname',res.data.result[0].nickname);
+              sessionStorage.setItem('adminname',res.data.result[0].nickname);
             //存登录人员的id
               sessionStorage.setItem('adminid',res.data.result[0].AdminId);
-              //vuex里面存人员头像
+              //存个人信息
+              sessionStorage.setItem('privatemes',res.data.result[0].privatemes);
+              //vuex里面存人员头像和名字
               let getmyimg='http://139.196.87.221:3000'+res.data.result[0].userimg.substring(6)
               console.log(getmyimg);
               this.$store.commit('changeimg',getmyimg)
+              this.$store.commit('changename',res.data.result[0].nickname)
               //也往sessionStorage里面存东西 防止页面刷新时候头像没了
                   sessionStorage.setItem('myimg',getmyimg);
               //可以取到头像

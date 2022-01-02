@@ -185,6 +185,12 @@ export default {
         //上传到vuex
         this.$store.commit('changeimg',commitimg)
 
+         //这里就应该触发修改信息socket
+          this.$socket.emit('changemes',{
+            adminname:sessionStorage.getItem('adminname'),
+            img:commitimg
+          })
+
         //更新存储
          //从vuex里面取值
         this.userimg=this.$store.state.myuserimg
@@ -197,7 +203,6 @@ export default {
     getalladmin()
     {
       this.$axios.get('/getallperson?AdminId='+sessionStorage.getItem('adminid')).then(res=>{
-        console.log(res);
         this.othermes=res.data
         //对头像和加入时间进行处理
         this.othermes.forEach(v=>{
@@ -278,10 +283,9 @@ export default {
 
 }
 .basemes{
-  flex: 1;
+  flex: 1.2;
   text-align: right;
   display: inline-block;
-  width: 80px;
   color: rgb(121, 118, 118);
 }
 .privateshow{

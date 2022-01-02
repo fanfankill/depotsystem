@@ -65,6 +65,13 @@ export default {
     watch:{
       istoedit:function(){
         this.$emit('toldfather',this.istoedit)
+      },
+
+      allvalue:{
+        handler:{
+
+        },
+        deep:true
       }
   },
     methods:{
@@ -85,14 +92,24 @@ export default {
         }).then(res=>{
           //更新vuex里面的name
           this.$store.commit('changename',this.basemessgae.nickname)
+          sessionStorage.setItem('adminname',this.basemessgae.nickname)
+
+          //这里就应该触发修改信息socket
+          this.$socket.emit('changemes',{
+            adminname:this.basemessgae.nickname,
+            img:sessionStorage.getItem('myimg')
+          })
           
           this.messageBox(res.data.message,'success')
           this.istoedit=false
           console.log(res);
         })
       }
-    }
+    },
 
+    sockets:{
+        
+    }
     
 }
 </script>

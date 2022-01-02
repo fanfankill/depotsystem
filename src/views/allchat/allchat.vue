@@ -55,9 +55,7 @@ export default {
       }
     };
   },
-  beforeDestroy: function () {
-    this.$socket.emit("disconnect");
-  },
+ 
   data() {
     return {
       currentnow: 0,
@@ -102,7 +100,7 @@ export default {
         p.appendChild(span2)
         p.appendChild(span)
         document.getElementById('showmes').appendChild(p)
-           document.getElementById("showmes").scrollTop += document.getElementById(
+        document.getElementById("showmes").scrollTop += document.getElementById(
         "showmes"
       ).offsetHeight;
 

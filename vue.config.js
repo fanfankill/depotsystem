@@ -1,4 +1,10 @@
 module.exports = {
   publicPath: './',
-  productionSourceMap:false
+  productionSourceMap:false,
+  // configureWebpack: {
+  //   externals: {
+  //     echarts: "echarts",
+  //   }
+  // }
+  
 }

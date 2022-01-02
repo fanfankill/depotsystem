@@ -10,7 +10,8 @@ export default new Vuex.Store({
         //头像位置
         myuserimg:'',
         //名字
-        myname:'',    
+        myname:'',   
+        //个人介绍 
         
     },
     getters:{/*实时监听state值的变化 */

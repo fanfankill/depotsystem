@@ -62,8 +62,8 @@ export default {
           title:'Image 图片'
         },
         {
-          ahref:'#/showcompent/progress',
-          title:'Progress 进度条'
+          ahref:'#/showcompent/popover',
+          title:'Popover 弹出框'
         },
       ]
     }

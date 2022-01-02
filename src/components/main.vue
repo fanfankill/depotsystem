@@ -44,7 +44,7 @@
             <span slot="title">管理员界面</span>
           </el-menu-item>
 
-            <el-menu-item index="/allchat">
+            <el-menu-item index="/mychat">
             <i class="iconfont icon-guanliyuan"></i>
             <span slot="title">一起聊天</span>
           </el-menu-item>
@@ -96,6 +96,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
+          @select="dosomecolse"
         >
           <el-menu-item index="/mainshow">
             <i class="iconfont icon-ico_shuju"></i>
@@ -132,7 +133,7 @@
             <span slot="title">管理员界面</span>
           </el-menu-item>
 
-            <el-menu-item index="/allchat">
+          <el-menu-item index="/mychat">
             <i class="iconfont icon-guanliyuan"></i>
             <span slot="title">一起聊天</span>
           </el-menu-item>
@@ -208,6 +209,9 @@ export default {
       isdown:false,
       };
   },
+   beforeDestroy: function () {
+    this.$socket.emit("disconnect");
+  },
   mounted: function () {
 
     //vuex里面取头像
@@ -217,7 +221,7 @@ export default {
     }else if(sessionStorage.getItem('myimg')){
         this.userimg=sessionStorage.getItem('myimg')
     }else{
-      this.userimg='http://139.196.87.221:3000/img/moren.jpg'
+      this.userimg='http://139.196.87.221:3000/imgs/moren.jpg'
     }
     //vuex取名字
     if(this.$store.state.myname)
@@ -270,8 +274,18 @@ export default {
          
         this.$refs.menu.style.height=0
         this.isdown=false
+      }  
+    },
+    dosomecolse(){
+      if(!this.isdown){
+        this.$refs.menu.style.height='505px'
+        this.isdown=true
       }
-        
+      else{
+         
+        this.$refs.menu.style.height=0
+        this.isdown=false
+      }  
     }
   },
 };
@@ -280,7 +294,7 @@ export default {
 <style scope>
 @media screen and (min-width:0px) and (max-width:720px){
   html{
-    font-size: 13px;
+    font-size: 14px;
   }
   .el-aside {
     display: none;
@@ -344,10 +358,10 @@ export default {
   line-height: 60px;
   color: rgb(159, 222, 238);
   overflow: hidden;
+  z-index: 0;
 }
 .el-header{
   position: relative;
-  z-index: 2501;
 }
 .mymenu{
   position: absolute;

@@ -6,16 +6,23 @@ import router from './router'/*别忘记给router去注册 用this.$routers.push
 import store from './store/store'
 import axios from 'axios'
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+
 //引入手写组件
 import fanui from './components/fanfanui'
 
 import './assets/style/iconfont.css'
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import echarts from 'echarts'
 /**引入font awesome */
 import 'font-awesome/css/font-awesome.min.css'
+
+// //按需加载
+// import element  from './element'
+// Vue.use(element)
+
 
 
 //引入全局message封装
@@ -40,7 +47,6 @@ Vue.prototype.$echarts = echarts
 
 Vue.prototype.$axios = axios
 
-Vue.use(ElementUI)
 
 Vue.use(fanui)
 

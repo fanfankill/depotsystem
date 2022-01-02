@@ -1,75 +1,94 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 2632398 */
-  src: url('//at.alicdn.com/t/font_2632398_fq5xl9eppyr.woff2?t=1624611629582') format('woff2'),
-       url('//at.alicdn.com/t/font_2632398_fq5xl9eppyr.woff?t=1624611629582') format('woff'),
-       url('//at.alicdn.com/t/font_2632398_fq5xl9eppyr.ttf?t=1624611629582') format('truetype');
+  font-family: "iconfont"; /* Project id 2954892 */
+  src: url('//at.alicdn.com/t/font_2954892_26huhweiqu2.woff2?t=1637762147747') format('woff2'),
+       url('//at.alicdn.com/t/font_2954892_26huhweiqu2.woff?t=1637762147747') format('woff'),
+       url('//at.alicdn.com/t/font_2954892_26huhweiqu2.ttf?t=1637762147747') format('truetype');
 }
 
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
-  padding-right: 10px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-time:before {
-  content: "\e62b";
+.icon-shizhongfill:before {
+  content: "\e74e";
 }
 
-.icon-qing:before {
-  content: "\e61f";
+.icon-confused-:before {
+  content: "\e60d";
 }
 
-.icon-yintian:before {
-  content: "\e624";
+.icon-geek:before {
+  content: "\e619";
 }
 
-.icon-tianqi:before {
+.icon-gentleman-:before {
   content: "\e61a";
 }
 
-.icon-ziyuan:before {
-  content: "\e643";
+.icon-happy-:before {
+  content: "\e621";
 }
 
-.icon-ziyuan1:before {
-  content: "\e646";
+.icon-biaoqing2:before {
+  content: "\e650";
 }
 
-.icon-celsius-fill:before {
-  content: "\e741";
+.icon-maimeng:before {
+  content: "\e60a";
 }
 
-.icon-shezhi01:before {
-  content: "\e64b";
+.icon-kulian:before {
+  content: "\e60b";
 }
 
-.icon-cheliangdangan:before {
-  content: "\e616";
+.icon-biaoqing:before {
+  content: "\e60c";
 }
 
-.icon-huaban39:before {
+.icon-biaoqing1:before {
+  content: "\e666";
+}
+
+.icon-chijing:before {
   content: "\e600";
 }
 
-.icon-guanliyuan:before {
-  content: "\e62a";
+.icon-dai:before {
+  content: "\e601";
 }
 
-.icon-ico_shuju:before {
-  content: "\e6ff";
+.icon-mogui:before {
+  content: "\e602";
 }
 
-.icon-cheliangdengji:before {
-  content: "\e6b9";
+.icon-ganga:before {
+  content: "\e603";
 }
 
-.icon-chewei:before {
+.icon-qin:before {
   content: "\e604";
 }
 
-.icon-menu_cwcl:before {
-  content: "\e655";
+.icon-nu:before {
+  content: "\e605";
+}
+
+.icon-zhayan:before {
+  content: "\e606";
+}
+
+.icon-shengqi:before {
+  content: "\e607";
+}
+
+.icon-ma:before {
+  content: "\e608";
+}
+
+.icon-bishi:before {
+  content: "\e609";
 }

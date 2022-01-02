@@ -1,20 +1,12 @@
 
-import service from './http'
+import request from './http'
 
 
-export const login=data=>{
-    return new Promise((resolve,reject)=>{
-        service({
+export function login(data){
+    return request({
             url:'/login',
             method:'post',
             data,
-        }).then((res)=>{
-            resolve(res)
-        }).catch(err=>{
-            reject(err)
         })
-    })
-       
-
 }
 

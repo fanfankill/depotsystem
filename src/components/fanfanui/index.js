@@ -5,6 +5,7 @@ import fanalert from '../fanfanui/alert/index.vue'
 import fanbadge from '../fanfanui/badge/index.vue'
 import fanlink from '../fanfanui/link/index.vue'
 import fanimgge from '../fanfanui/image/index.vue'
+import fanpopover from '../fanfanui/popover/index.vue'
 
 
 
@@ -17,6 +18,7 @@ const allcomponents=[
     fanbadge,
     fanlink,
     fanimgge,
+    fanpopover
 ]
 
 
