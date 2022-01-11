@@ -32,6 +32,11 @@ const componentlink=()=>import('../views/justforcom/compentchildren/link')
 const componentimage=()=>import('../views/justforcom/compentchildren/image')
 //popver
 const componentpopover=()=>import('../views/justforcom/compentchildren/popover')
+//breadcrumb
+const componentbreadcrumb=()=>import('../views/justforcom/compentchildren/breadcrumb')
+//tag
+const componenttag=()=>import('../views/justforcom/compentchildren/tag')
+
 
 //安装插件
 Vue.use(VueRouter)
@@ -131,6 +136,22 @@ children:[
   {
     path:'/showcompent/popover',
     component:componentpopover,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  },
+
+  {
+    path:'/showcompent/breadcrumb',
+    component:componentbreadcrumb,
+    meta: {
+      keepAlive: true,   //是否缓存（缓存后不刷新）
+      needtoken:false      //权限路由
+  }
+  }, {
+    path:'/showcompent/tag',
+    component:componenttag,
     meta: {
       keepAlive: true,   //是否缓存（缓存后不刷新）
       needtoken:false      //权限路由

@@ -10,8 +10,9 @@
     
       <ul class="leftul">
         <li><h2>组件</h2></li>
-        <li v-for="(item,index) in myitem"  :key="item.ahref"><a @click="getindex(index)"  :href="item.ahref" class="base_a" :class="{active_a:index==current}" >{{item.title}}</a></li>
-
+        <li v-for="(item,index) in myitem"  :key="item.ahref">
+          <a @click="getindex(index)"  :href="item.ahref" class="base_a" :class="{active_a:index==current}" >{{item.title}}</a>
+        </li>
       </ul>
 
     
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import '../../assets/css/compontbase.css'
 export default {
   name:'componentsfather',
   data() {
@@ -64,6 +66,13 @@ export default {
         {
           ahref:'#/showcompent/popover',
           title:'Popover 弹出框'
+        },
+         {
+          ahref:'#/showcompent/breadcrumb',
+          title:'Breadcrumb 面包屑'
+        },{
+          ahref:'#/showcompent/tag',
+          title:'Tag 标签'
         },
       ]
     }
@@ -126,14 +135,31 @@ padding-bottom: 10px;
 #leftshow{
   height: 85vh;
   float: left;
-  width: 30%;
+  width: 30vw;
   overflow: auto;
-  border-right:1px solid gainsboro ;
+  border-right:0.1vw solid gainsboro ;
 
 }
+
+
+/*滚动条样式*/
+#leftshow::-webkit-scrollbar {
+            width: 0px;   
+            /*height: 4px;*/
+        }
+
+
+
+#rightshow::-webkit-scrollbar {
+            width: 0px;   
+            /*height: 4px;*/
+        }
+
+
+
 #rightshow{
   float: left;
-  width:69.9%;
+  width:69.9vw;
  height: 85vh;
   overflow: auto;
 }
@@ -144,7 +170,7 @@ padding-bottom: 10px;
   margin: 0;
   overflow: hidden;
   width: 200px;
-  margin: auto;
+  margin: auto; 
 }
 .leftul li{
   list-style: none;
@@ -155,6 +181,10 @@ padding-bottom: 10px;
  text-decoration: none;
  color: black;
 }
+.base_a:hover{
+   color: rgb(71, 179, 230);
+   transition: all .2s;
+}
 .active_a{
   color: rgb(71, 179, 230);
 }
@@ -163,7 +193,7 @@ padding-bottom: 10px;
 
 
 /**媒体查询响应式适配 */
-@media screen and (min-width:0px) and (max-width:760px){
+@media screen and (min-width:0px) and (max-width:720px){
   #leftshow{
     text-align: center;
     display: flex;

@@ -6,8 +6,9 @@ import fanbadge from '../fanfanui/badge/index.vue'
 import fanlink from '../fanfanui/link/index.vue'
 import fanimgge from '../fanfanui/image/index.vue'
 import fanpopover from '../fanfanui/popover/index.vue'
-
-
+import fanbreadcrumb from '../fanfanui/breadcrumb/index.vue'
+import fanbreadcrumbytem from '../fanfanui/breadcrumbitem/index.vue'
+import fantag from '../fanfanui/tag/index.vue'
 
 // 组件列表
 const allcomponents=[
@@ -18,7 +19,10 @@ const allcomponents=[
     fanbadge,
     fanlink,
     fanimgge,
-    fanpopover
+    fanpopover,
+    fanbreadcrumb,
+    fanbreadcrumbytem,
+    fantag
 ]
 
 

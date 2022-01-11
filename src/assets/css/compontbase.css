@@ -1,0 +1,35 @@
+.mytitle{
+    margin: 55px 0 20px 20px;
+    font-weight: 400;
+    color: #1f2f3d;
+}
+.zuiwai{
+    margin-left: 20px;
+}
+.mydiv{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.mydiv_right{
+    margin-right: 20px;
+}
+.center{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex_ave{
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex_start{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.flex_btw{
+    display: flex;
+    justify-content: space-between;
+}
